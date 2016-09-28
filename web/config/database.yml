@@ -1,0 +1,20 @@
+production:
+  adapter: postgresql
+  encoding: utf-8
+  database: ruby-china
+  username: postgres
+  password:
+  host: postgresql
+  pool: 64
+
+development:
+  adapter: postgresql
+  encoding: utf-8
+  database: ruby-china-dev
+  pool: 64
+
+test: &test
+  adapter: postgresql
+  encoding: utf-8
+  database: ruby-china-test
+  pool: 64

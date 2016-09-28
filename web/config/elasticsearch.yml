@@ -1,0 +1,15 @@
+defaults: &defaults
+  host: 127.0.0.1:9200
+
+development:
+  <<: *defaults
+
+test:
+  <<: *defaults
+
+production:
+  host: elasticsearch:9200
+  <<: *defaults
+
+development_mongohq:
+  <<: *defaults

@@ -1,7 +1,7 @@
 # NAME:     rubychina/web
 # VERSION:  0.0.1
 
-FROM rubychina/base:0.0.1
+FROM rubychina/base:dev
 
 ENV RAILS_ENV 'production'
 
@@ -16,8 +16,21 @@ RUN useradd ruby -s /bin/bash -m -U &&\
 
 WORKDIR /var/www
 
-RUN mkdir -p /data/redis &&\
-
 RUN mkdir -p /var/www/log &&\
     mkdir -p /var/www/pids &&\
     chown -R ruby:ruby /var/www
+
+# = Logrotate
+ADD etc/logrotate.conf /etc/logrotate.conf
+
+# = Link App config
+ADD config/*.yml /var/www/ruby-china/config/
+ADD config/*.rb /var/www/ruby-china/config/
+
+# = Init Web Application
+WORKDIR /var/www/ruby-china
+
+ADD etc/nginx/nginx.conf /etc/nginx/nginx.conf
+ADD etc/nginx/ruby-china.conf /etc/nginx/conf.d/ruby-china.conf
+CMD service nginx start
+
