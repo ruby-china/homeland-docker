@@ -1,4 +1,3 @@
-cd ruby-china
 docker-compose build
 docker-compose run app git pull origin master
 docker-compose run app bundle exec rails db:create
