@@ -1,7 +1,7 @@
 # NAME:     rubychina/web
 # VERSION:  0.0.1
 
-FROM rubychina/base:dev
+FROM rubychina/base:latest
 
 ENV RAILS_ENV 'production'
 
