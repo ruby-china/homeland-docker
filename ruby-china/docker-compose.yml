@@ -1,49 +1,44 @@
 postgresql:
   image: postgres:9.5
   ports:
-    - '5432:5432'
+    - '5432'
   volumes:
     - postgresql:/var/lib/postgresql/data
 
 redis:
   image: redis:3.0.5
   ports:
-    - '6379:6379'
+    - '6379'
   volumes:
     - redis:/var/lib/redis/data
 
 memcached:
   image: memcached:1.4.31
   ports:
-    - '11211:11211'
+    - '11211'
 
 elasticsearch:
   image: elasticsearch:5
+  command: elasticsearch -Des.network.host=0.0.0.0
   ports:
-    - '9200:9200'
-    - '9300:9300'
+    - '9200'
+    - '9300'
 
-sidekiq:
-  build: .
-  command: bundle exec sidekiq -C config/sidekiq.yml
-  links:
-    - elasticsearch
-    - postgresql
-    - redis
-    - memcached
-  env_file:
-    - .env
-
-web:
+web: &app_base
   build: .
   env_file: .env
+  environment:
+    RAILS_ENV: production
   links:
     - elasticsearch
     - postgresql
     - memcached
     - redis
-    - sidekiq
   command: bundle exec puma -C config/puma.rb
   ports:
-    - "7000:7000"
-    - "80:80"
+    - "7000"
+
+worker:
+  <<: *app_base
+  ports: []
+  command: bundle exec sidekiq -C config/sidekiq.yml

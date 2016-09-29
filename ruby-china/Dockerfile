@@ -29,8 +29,3 @@ ADD config/*.rb /var/www/ruby-china/config/
 
 # = Init Web Application
 WORKDIR /var/www/ruby-china
-
-ADD etc/nginx/nginx.conf /etc/nginx/nginx.conf
-ADD etc/nginx/ruby-china.conf /etc/nginx/conf.d/ruby-china.conf
-CMD service nginx start
-
