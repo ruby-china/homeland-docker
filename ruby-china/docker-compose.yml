@@ -40,9 +40,9 @@ web:
 
 app: &app_base
   build: .
-  env_file: .env
+  env_file: app.env
   links:
-    # - elasticsearch
+    - elasticsearch
     - postgresql
     - memcached
     - redis
