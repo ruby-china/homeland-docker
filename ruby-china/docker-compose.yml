@@ -18,8 +18,7 @@ memcached:
     - '11211'
 
 elasticsearch:
-  image: elasticsearch:5
-  command: elasticsearch
+  image: elasticsearch:2.4.1
   volumes:
     - ../data/elasticsearch:/usr/share/elasticsearch/data
   ports:
