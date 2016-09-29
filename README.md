@@ -1,25 +1,38 @@
+Ruby China Docker
+-----------------
+
+## Configuration
+
+你可以根据需要，修改 `ruby-china/config` 和 `ruby-china/etc` 里面的配置文件。
+
+## Commands
+
+编译（修改配置、更新 Git 代码）都需要重新编译
+
 ```bash
-cd ruby-china
-docker-compose build
-docker-compose run web bundle exec rails db:create
-docker-compose run web bundle exec rails db:migrate
-docker-compose run web bundle exec rails assets:precompile
+./rebuild
 ```
 
-## 启动
+启动
 
 ```bash
-docker-compose up -d
+./start
 ```
 
-## 重启
+重启
 
 ```bash
-docker-compose restart
+./restart
 ```
 
-## 停止
+停止
 
 ```bash
-docker-compose down
+./stop
+```
+
+查看状态
+
+```bash
+./status
 ```
