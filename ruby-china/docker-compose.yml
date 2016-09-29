@@ -34,6 +34,7 @@ web:
   command: nginx -c /etc/nginx/nginx.conf
   volumes:
     - ../shared/cache/assets:/var/www/ruby-china/public/assets
+    - ../shared/system:/var/www/ruby-china/public/system
   ports:
     - "80:80"
     - "443:443"
@@ -48,7 +49,9 @@ app: &app_base
     - redis
   volumes:
     - ../shared/cache/assets:/var/www/ruby-china/public/assets
+    - ../shared/system:/var/www/ruby-china/public/system
     - ../log:/var/www/ruby-china/log
+    - ../tmp:/var/www/ruby-china/tmp
   command: bundle exec puma -C config/puma.rb
   ports:
     - "7000"
@@ -56,7 +59,4 @@ app: &app_base
 worker:
   <<: *app_base
   ports: []
-  volumes:
-    - ../log/sidekiq/:/var/www/log/
-    - ../pids/sidekiq/:/var/www/ruby-china/tmp/pids
   command: bundle exec sidekiq -C config/sidekiq.yml -L /var/www/log/sidekiq.log
