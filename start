@@ -1,0 +1,2 @@
+cd ruby-china
+docker-compose up -d

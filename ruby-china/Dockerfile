@@ -23,9 +23,15 @@ RUN mkdir -p /var/www/log &&\
 # = Logrotate
 ADD etc/logrotate.conf /etc/logrotate.conf
 
+# = Nginx
+ADD etc/nginx/nginx.conf /etc/nginx/nginx.conf
+ADD etc/nginx/ruby-china.conf /etc/nginx/conf.d/ruby-china.conf
+
 # = Link App config
 ADD config/*.yml /var/www/ruby-china/config/
 ADD config/*.rb /var/www/ruby-china/config/
 
 # = Init Web Application
 WORKDIR /var/www/ruby-china
+
+CMD git pull origin master

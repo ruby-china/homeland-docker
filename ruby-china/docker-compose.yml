@@ -3,14 +3,14 @@ postgresql:
   ports:
     - '5432'
   volumes:
-    - postgresql:/var/lib/postgresql/data
+    - ../data/postgresql:/var/lib/postgresql/data
 
 redis:
   image: redis:3.0.5
   ports:
     - '6379'
   volumes:
-    - redis:/var/lib/redis/data
+    - ../data/redis:/data
 
 memcached:
   image: memcached:1.4.31
@@ -19,21 +19,34 @@ memcached:
 
 elasticsearch:
   image: elasticsearch:5
-  command: elasticsearch -Des.network.host=0.0.0.0
+  command: elasticsearch
   ports:
     - '9200'
     - '9300'
 
-web: &app_base
+web:
+  build: .
+  links:
+    - app
+    - worker
+  command: nginx -c /etc/nginx/nginx.conf
+  volumes:
+    - ../shared/cache/assets:/var/www/ruby-china/public/assets
+  ports:
+    - "80:80"
+    - "443:443"
+
+app: &app_base
   build: .
   env_file: .env
-  environment:
-    RAILS_ENV: production
   links:
-    - elasticsearch
+    # - elasticsearch
     - postgresql
     - memcached
     - redis
+  volumes:
+    - ../shared/cache/assets:/var/www/ruby-china/public/assets
+    - ../log:/var/www/ruby-china/log
   command: bundle exec puma -C config/puma.rb
   ports:
     - "7000"
@@ -41,4 +54,7 @@ web: &app_base
 worker:
   <<: *app_base
   ports: []
-  command: bundle exec sidekiq -C config/sidekiq.yml
+  volumes:
+    - ../log/sidekiq/:/var/www/log/
+    - ../pids/sidekiq/:/var/www/ruby-china/tmp/pids
+  command: bundle exec sidekiq -C config/sidekiq.yml -L /var/www/log/sidekiq.log
