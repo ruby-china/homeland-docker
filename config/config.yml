@@ -53,17 +53,19 @@ defaults: &defaults
   admin_emails:
     - "admin@admin.com"
   google_analytics_key: ""
-  upload_url: "http://your-bucket.b0.upaiyun.com"
   asset_host: ""
-  upyun_username: "username"
-  upyun_password: "123123"
-  upyun_bucket: "your-bucket"
+  upload_provider: "aliyun" # can be  upyun/aliyun
+  upload_access_id: "test" # or username
+  upload_access_secret: "123123"
+  upload_bucket: "your-bucket"
+  upload_url: "http://your-bucket.domain.com"
+  upload_aliyun_internal: true
+  upload_aliyun_area: "cn-shanghai"
   email_server: "smtp.your-smtp-server.com"
   email_sender: 'dev-test@your-host.com'
   email_password: 'test123456'
   github_token: "91726ee4170d8e2679ec"
   github_secret: "13c7e55e8e53c57a399181e96ea3a55a3fdd9c7c"
-  twitter_id: ""
 
 development:
   <<: *defaults
