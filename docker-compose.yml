@@ -32,8 +32,8 @@ web:
     - worker
   command: nginx -c /etc/nginx/nginx.conf
   volumes:
-    - ./shared/cache/assets:/var/www/ruby-china/public/assets
-    - ./shared/system:/var/www/ruby-china/public/system
+    - ./shared/cache/assets:/var/www/homeland/public/assets
+    - ./shared/system:/var/www/homeland/public/system
   ports:
     - "80:80"
     - "443:443"
@@ -47,10 +47,10 @@ app: &app_base
     - memcached
     - redis
   volumes:
-    - ./shared/cache/assets:/var/www/ruby-china/public/assets
-    - ./shared/system:/var/www/ruby-china/public/system
-    - ./log:/var/www/ruby-china/log
-    - ./tmp:/var/www/ruby-china/tmp
+    - ./shared/cache/assets:/var/www/homeland/public/assets
+    - ./shared/system:/var/www/homeland/public/system
+    - ./log:/var/www/homeland/log
+    - ./tmp:/var/www/homeland/tmp
   command: bundle exec puma -C config/puma.rb
   ports:
     - "7000"

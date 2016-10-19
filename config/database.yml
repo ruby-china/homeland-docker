@@ -1,7 +1,7 @@
 production:
   adapter: postgresql
   encoding: utf-8
-  database: ruby-china
+  database: homeland
   username: postgres
   password:
   host: postgresql
@@ -10,11 +10,11 @@ production:
 development:
   adapter: postgresql
   encoding: utf-8
-  database: ruby-china-dev
+  database: homeland-dev
   pool: 64
 
 test: &test
   adapter: postgresql
   encoding: utf-8
-  database: ruby-china-test
+  database: homeland-test
   pool: 64

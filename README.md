@@ -1,9 +1,7 @@
-Ruby China Docker
+Homeland Docker
 -----------------
 
-[Ruby China](https://github.com/ruby-china/ruby-china) 开源项目基于 Docker 的自动化部署方案。
-
-你可以用此项目快速构建一个类似 [Ruby China](https://ruby-china.org) 的社区网站。
+[Homeland](http://gethomeland.com) 基于 Docker 的自动化部署方案。
 
 ## 系统需求
 
@@ -28,11 +26,11 @@ sudo docker info
 sudo docker-compose version
 ```
 
-### 获取 ruby-china-docker 的项目
+### 获取 homeland-docker 的项目
 
 ```bash
-git clone https://github.com/ruby-china/ruby-china-docker.git
-cd ruby-china-docker/
+git clone https://github.com/ruby-china/homeland-docker.git
+cd homeland-docker/
 ```
 
 你可以根据你的项目情况，修改 `config` 和 `etc` 里面的配置文件。
