@@ -8,5 +8,5 @@ test:
   <<: *defaults
 
 production:
-  host: elasticsearch:9200
   <<: *defaults
+  host: elasticsearch:9200

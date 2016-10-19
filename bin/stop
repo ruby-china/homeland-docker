@@ -1,1 +1,1 @@
-docker-compose down
+docker-compose stop web app worker
