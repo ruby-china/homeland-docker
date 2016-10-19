@@ -34,4 +34,9 @@ ADD config/*.rb /var/www/ruby-china/config/
 # = Init Web Application
 WORKDIR /var/www/ruby-china
 
+RUN SECRET_KEY_BASE=$(openssl rand -hex 32) &&\
+    cat config/secrets.yml |\
+    sed "s/<%= ENV\[\"SECRET_KEY_BASE\"\] %>/$SECRET_KEY_BASE/" > config/secrets.yml &&\
+    cat config/secrets.yml
+
 CMD git pull origin master

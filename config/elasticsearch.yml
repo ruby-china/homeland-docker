@@ -10,6 +10,3 @@ test:
 production:
   host: elasticsearch:9200
   <<: *defaults
-
-development_mongohq:
-  <<: *defaults
