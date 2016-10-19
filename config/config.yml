@@ -45,7 +45,7 @@ site_configs: &site_configs
 defaults: &defaults
   <<: *site_configs
   app_name: "App Name"
-  domain: "localhost:3000"
+  domain: "127.0.0.1"
   https: false
   admin_emails:
     - "admin@admin.com"

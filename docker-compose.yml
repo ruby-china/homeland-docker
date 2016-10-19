@@ -32,6 +32,8 @@ web:
     - worker
   command: nginx -c /etc/nginx/nginx.conf
   volumes:
+    - ./shared/ssl:/var/www/ssl
+    - ./log:/var/www/log
     - ./shared/cache/assets:/var/www/homeland/public/assets
     - ./shared/system:/var/www/homeland/public/system
   ports:

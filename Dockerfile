@@ -21,15 +21,15 @@ RUN mkdir -p /var/www/log &&\
     chown -R ruby:ruby /var/www
 
 # = Logrotate
-ADD etc/logrotate.conf /etc/logrotate.conf
+COPY etc/logrotate.conf /etc/logrotate.conf
 
 # = Nginx
-ADD etc/nginx/nginx.conf /etc/nginx/nginx.conf
-ADD etc/nginx/homeland.conf /etc/nginx/conf.d/homeland.conf
+COPY etc/nginx/nginx.conf /etc/nginx/nginx.conf
+COPY etc/nginx/homeland.conf /etc/nginx/conf.d/homeland.conf
 
 # = Link App config
-ADD config/*.yml /var/www/homeland/config/
-ADD config/*.rb /var/www/homeland/config/
+COPY config/*.yml /var/www/homeland/config/
+COPY config/*.rb /var/www/homeland/config/
 
 # = Init Web Application
 WORKDIR /var/www/homeland

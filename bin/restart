@@ -1,1 +1,1 @@
-docker-compose restart web
+docker-compose restart app worker web
