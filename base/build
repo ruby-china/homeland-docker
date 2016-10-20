@@ -1,1 +1,1 @@
-docker build -t rubychina/base:dev .
+docker build -t homeland/base:dev .
