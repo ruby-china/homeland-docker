@@ -1,0 +1,2 @@
+docker-compose run app bundle exec rake environment elasticsearch:import:model CLASS=Topic FORCE=y
+docker-compose run app bundle exec rake environment elasticsearch:import:model CLASS=Page FORCE=y
