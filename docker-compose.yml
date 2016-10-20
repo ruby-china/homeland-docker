@@ -26,16 +26,16 @@ elasticsearch:
     - '9300'
 
 web:
-  build: .
+  image: nginx:1.10
   links:
     - app
     - worker
   command: nginx -c /etc/nginx/nginx.conf
   volumes:
-    - ./shared/ssl:/var/www/ssl
+    - ./etc/nginx/homeland.conf:/etc/nginx/conf.d/homeland.conf
+    - ./etc/nginx/nginx.conf:/etc/nginx/nginx.conf
     - ./log:/var/www/log
-    - ./shared/cache/assets:/var/www/homeland/public/assets
-    - ./shared/system:/var/www/homeland/public/system
+    - ./shared/public:/var/www/homeland/public
   ports:
     - "80:80"
     - "443:443"
@@ -49,8 +49,8 @@ app: &app_base
     - memcached
     - redis
   volumes:
-    - ./shared/cache/assets:/var/www/homeland/public/assets
-    - ./shared/system:/var/www/homeland/public/system
+    - ./shared/public:/var/www/homeland/public
+    - ./shared/vendor/bundle:/var/www/homeland/vendor/bundle
     - ./log:/var/www/homeland/log
     - ./tmp:/var/www/homeland/tmp
   command: bundle exec puma -C config/puma.rb
