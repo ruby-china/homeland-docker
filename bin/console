@@ -1,0 +1,1 @@
+docker-compose run app bundle exec rails console
