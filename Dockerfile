@@ -4,9 +4,6 @@
 FROM homeland/base:latest
 
 ENV RAILS_ENV 'production'
-ENV BUNDLE_PATH '/var/cache/bundle'
-VOLUME ["/var/cache/bundle"]
-
 
 MAINTAINER Jason Lee "https://github.com/huacnlee"
 
@@ -23,6 +20,10 @@ WORKDIR /var/www
 RUN mkdir -p /var/www/log &&\
     mkdir -p /var/www/pids &&\
     chown -R ruby:ruby /var/www
+
+# = Nginx
+COPY etc/nginx/nginx.conf /etc/nginx/nginx.conf
+COPY etc/nginx/homeland.conf /etc/nginx/conf.d/homeland.conf
 
 # = Link App config
 COPY config/*.yml /var/www/homeland/config/
