@@ -13,7 +13,7 @@ Homeland Docker
 
 ### 安装 Docker:
 
-下面的脚本是增对 Ubuntu Server 14.04 设计的，其他版本，请查阅 [Docker 官方的安装文档](https://docker.github.io/engine/installation/linux/)。
+下面的脚本是针对 Ubuntu Server 14.04 设计的，其他版本，请查阅 [Docker 官方的安装文档](https://docker.github.io/engine/installation/linux/)。
 
 ```bash
 curl -sSL https://git.io/vPypp | bash
