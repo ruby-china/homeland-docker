@@ -31,11 +31,8 @@ web:
     - app
     - worker
   command: nginx -c /etc/nginx/nginx.conf
-  volumes:
-    - ./shared/ssl:/var/www/ssl
-    - ./log:/var/www/log
-    - ./shared/cache/assets:/var/www/homeland/public/assets
-    - ./shared/system:/var/www/homeland/public/system
+  volumes_from:
+    - app
   ports:
     - "80:80"
     - "443:443"
@@ -52,6 +49,7 @@ app: &app_base
     - memcached
     - redis
   volumes:
+    - ./shared/ssl:/var/www/ssl
     - ./shared/cache/assets:/var/www/homeland/public/assets
     - ./shared/system:/var/www/homeland/public/system
     - ./log:/var/www/homeland/log

@@ -3,27 +3,30 @@
 
 FROM homeland/base:latest
 
-ENV RAILS_ENV 'production'
-
 MAINTAINER Jason Lee "https://github.com/huacnlee"
 
 RUN useradd ruby -s /bin/bash -m -U &&\
-    mkdir -p /var/www && cd /var/www &&\
-    git clone https://github.com/ruby-china/ruby-china.git --depth 1 homeland &&\
-    chown -R ruby:ruby /var/www &&\
-    cd homeland &&\
-    git checkout 834fbd6 -q &&\
-    sudo -u ruby bundle install --deployment
-
-WORKDIR /var/www
-
-RUN mkdir -p /var/www/log &&\
-    mkdir -p /var/www/pids &&\
+    mkdir -p /var/www &&\
+    mkdir -p /var/www/.bundle &&\
     chown -R ruby:ruby /var/www
+
+VOLUME ["/var/www/.bundle"]
 
 # = Nginx
 COPY etc/nginx/nginx.conf /etc/nginx/nginx.conf
 COPY etc/nginx/homeland.conf /etc/nginx/conf.d/homeland.conf
+
+USER ruby
+ENV BUNDLE_JOBS=2 BUNDLE_PATH=/var/www/.bundle
+
+WORKDIR /var/www
+RUN git clone https://github.com/ruby-china/ruby-china.git --depth 1 homeland &&\
+    cd homeland &&\
+    mkdir -p /var/www/homeland/tmp/cache &&\
+    git checkout e4f1a63 -q &&\
+    bundle install --deployment --path=/var/www/.bundle --retry=3
+
+VOLUME ['/var/www/homeland/tmp/cache']
 
 # = Link App config
 COPY config/*.yml /var/www/homeland/config/

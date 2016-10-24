@@ -36,7 +36,6 @@ reindex:
 	@$(RAKE) environment elasticsearch:import:model CLASS=User FORCE=y
 secert:
 	@test -f app.secret.env || echo "secret_key_base=`openssl rand -hex 32`" > app.secret.env
-	@cat app.secret.env
 start-brew-services:
 	@brew services start memcached
 	@brew services start postgres
