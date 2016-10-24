@@ -12,7 +12,7 @@ RUN useradd ruby -s /bin/bash -m -U &&\
     git clone https://github.com/ruby-china/ruby-china.git --depth 1 homeland &&\
     chown -R ruby:ruby /var/www &&\
     cd homeland &&\
-    git checkout 834fbd6 -q &&\
+    git checkout e4f1a63 -q &&\
     sudo -u ruby bundle install --deployment
 
 WORKDIR /var/www
