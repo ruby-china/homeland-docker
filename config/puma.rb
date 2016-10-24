@@ -5,8 +5,8 @@ stdout_redirect "/var/www/log/puma.stdout.log", "/var/www/log/puma.stderr.log", 
 bind 'unix:/var/www/pids/homeland.sock'
 daemonize false
 port 7000
-workers 4
-threads 8, 16
+workers (ENV["workers"] || 4)
+threads (ENV["min_threads"] || 8), (ENV["max_threads"] || 8)
 preload_app!
 
 on_worker_boot do
