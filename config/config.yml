@@ -44,7 +44,7 @@ site_configs: &site_configs
 
 defaults: &defaults
   <<: *site_configs
-  app_name: "<%= ENV['app_env'] || 'App Name' %>"
+  app_name: "<%= ENV['app_name'] || 'App Name' %>"
   domain: "<%= ENV['domain'] || '127.0.0.1' %>"
   https: <%= ENV['https'] || 'true' %>
   admin_emails: <%= (ENV['admin_emails'] || "").split(",").collect { |s| s.strip }  %>
