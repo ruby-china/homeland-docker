@@ -5,7 +5,7 @@ production:
   username: postgres
   password:
   host: postgresql
-  pool: 64
+  pool: <%= ENV['db_pool'] || 64 %>
 
 development:
   adapter: postgresql

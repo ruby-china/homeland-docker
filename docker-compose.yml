@@ -43,7 +43,7 @@ web:
 app: &app_base
   build: .
   env_file:
-    - app.env
+    - app.default.env
     - app.local.env
     - app.secret.env
   links:
@@ -56,6 +56,7 @@ app: &app_base
     - ./shared/system:/var/www/homeland/public/system
     - ./log:/var/www/homeland/log
     - ./tmp:/var/www/homeland/tmp
+    - ./tmp/pids:/var/www/homeland/tmp/pids
   command: bundle exec puma -C config/puma.rb
   ports:
     - "7000"
