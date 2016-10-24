@@ -42,7 +42,10 @@ web:
 
 app: &app_base
   build: .
-  env_file: app.env
+  env_file:
+    - app.env
+    - app.local.env
+    - app.secret.env
   links:
     - elasticsearch
     - postgresql

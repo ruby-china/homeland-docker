@@ -3,3 +3,5 @@ log/
 pids/
 shared/
 tmp/
+app.local.env
+app.secret.env

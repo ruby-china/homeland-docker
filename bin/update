@@ -1,5 +1,0 @@
-docker-compose build
-docker-compose run app bundle exec rails db:migrate
-docker-compose run app bundle exec rails assets:precompile RAILS_ENV=production
-./bin/stop
-./bin/start

@@ -1,6 +1,0 @@
-docker-compose build
-# docker-compose run app bundle exec rails db:create
-# docker-compose run app bundle exec rails db:migrate
-# docker-compose run app bundle exec rails db:seed
-# docker-compose run app bundle exec rails assets:precompile RAILS_ENV=production
-./bin/reindex-search

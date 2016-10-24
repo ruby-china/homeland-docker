@@ -1,4 +1,0 @@
-echo "Reindex ElasticSearch..."
-./bin/rake environment elasticsearch:import:model CLASS=Topic FORCE=y
-./bin/rake environment elasticsearch:import:model CLASS=Page FORCE=y
-./bin/rake environment elasticsearch:import:model CLASS=User FORCE=y
