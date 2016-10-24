@@ -3,6 +3,7 @@ RUN = docker-compose run app
 
 install:
 	@make secert
+	@touch app.local.env
 	@docker-compose build
 	@$(RUN) bundle exec rails db:create
 	@$(RUN) bundle exec rails db:migrate
@@ -10,7 +11,9 @@ install:
 	@$(RUN) bundle exec rails assets:precompile RAILS_ENV=production
 	@make reindex
 update:
-	# @docker-compose build
+	@touch app.secret.env
+	@touch app.local.env
+	@docker-compose build
 	@$(RUN) bundle exec rails db:migrate
 	@$(RUN) bundle exec rails assets:precompile RAILS_ENV=production
 	@make stop && make start
