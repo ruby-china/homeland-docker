@@ -9,3 +9,6 @@ Homeland Docker
 - [Docker](https://www.docker.com/), [Docker Compose](https://docs.docker.com/compose/)
 - [Aliyun OSS](https://www.aliyun.com/product/oss) 或 [UpYun](https://www.upyun.com) 用于文件存储。
 
+## 使用说明
+
+http://gethomeland.com/install/
