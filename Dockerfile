@@ -23,7 +23,7 @@ WORKDIR /var/www
 RUN git clone https://github.com/ruby-china/ruby-china.git --depth 1 homeland &&\
     cd homeland &&\
     mkdir -p /var/www/homeland/tmp/cache &&\
-    git checkout eb51912 -q &&\
+    git checkout 06c2e13 -q &&\
     bundle install --deployment --path=/var/www/.bundle --retry=3
 
 VOLUME ['/var/www/homeland/tmp/cache']
