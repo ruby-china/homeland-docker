@@ -22,14 +22,15 @@ RUN \
     echo "deb-src http://mirrors.163.com/ubuntu/ trusty-proposed main restricted universe multiverse" >> /etc/apt/sources.list && \
     echo "deb-src http://mirrors.163.com/ubuntu/ trusty-backports main restricted universe multiverse" >> /etc/apt/sources.list
 
-RUN \
-    apt-get update && apt-get install -y \
-    curl && \
-    apt-get clean && \
-    rm -rf /var/lib/apt/lists/*
+RUN apt-get update && apt-get install -y curl
 
 # == Install Packages for Ruby Environments.
 RUN curl -sSL https://raw.githubusercontent.com/huacnlee/init.d/4c3e898ddee98a2e66db2f2769ac34d8fa8d898d/install_packages | bash
+
+# Clean apt-get
+RUN \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/*
 
 # == Install Ruby
 RUN echo 'gem: --no-document' >> /usr/local/etc/gemrc &&\
