@@ -7,13 +7,14 @@ ENV RAILS_ENV 'production'
 
 MAINTAINER Jason Lee "https://github.com/huacnlee"
 
+VOLUME ["/usr/local/bundle"]
+
 RUN useradd ruby -s /bin/bash -m -U &&\
     mkdir -p /var/www && cd /var/www &&\
     git clone https://github.com/ruby-china/ruby-china.git --depth 1 homeland &&\
     chown -R ruby:ruby /var/www &&\
     cd homeland &&\
-    git checkout e4f1a63 -q &&\
-    sudo -u ruby bundle install --deployment
+    bundle install --retry=3 --jobs=2
 
 WORKDIR /var/www
 

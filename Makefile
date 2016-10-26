@@ -13,7 +13,7 @@ install:
 update:
 	@make secert
 	@touch app.local.env
-	@docker-compose build
+	@docker-compose build --no-cache
 	@$(RUN) bundle exec rails db:migrate
 	@$(RUN) bundle exec rails assets:precompile RAILS_ENV=production
 	@make stop && make start
