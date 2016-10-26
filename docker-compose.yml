@@ -49,6 +49,7 @@ app: &app_base
     - memcached
     - redis
   volumes:
+    - /usr/local/bundle
     - ./shared/ssl:/var/www/ssl
     - ./shared/cache/assets:/var/www/homeland/public/assets
     - ./shared/system:/var/www/homeland/public/system
