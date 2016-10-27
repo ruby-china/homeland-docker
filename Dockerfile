@@ -12,9 +12,7 @@ VOLUME ["/usr/local/bundle"]
 RUN useradd ruby -s /bin/bash -m -U &&\
     mkdir -p /var/www && cd /var/www &&\
     git clone https://github.com/ruby-china/ruby-china.git --depth 1 homeland &&\
-    chown -R ruby:ruby /var/www &&\
-    cd homeland &&\
-    bundle install --retry=3 --jobs=2
+    chown -R ruby:ruby /var/www
 
 WORKDIR /var/www
 
