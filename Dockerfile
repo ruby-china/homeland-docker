@@ -5,9 +5,16 @@ FROM homeland/base:latest
 
 MAINTAINER Jason Lee "https://github.com/huacnlee"
 
+VOLUME ["/usr/local/bundle"]
+
 RUN useradd ruby -s /bin/bash -m -U &&\
-    mkdir -p /var/www &&\
-    mkdir -p /var/www/log &&\
+    mkdir -p /var/www && cd /var/www &&\
+    git clone https://github.com/ruby-china/ruby-china.git --depth 1 homeland &&\
+    chown -R ruby:ruby /var/www
+
+WORKDIR /var/www
+
+RUN mkdir -p /var/www/log &&\
     mkdir -p /var/www/pids &&\
     mkdir -p /var/www/.bundle &&\
     chown -R ruby:ruby /var/www
