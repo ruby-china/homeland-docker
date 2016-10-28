@@ -48,7 +48,7 @@ defaults: &defaults
   modules: "<%= ENV['modules'] || 'all' %>"
   domain: "<%= ENV['domain'] || '127.0.0.1' %>"
   https: <%= ENV['https'] || 'true' %>
-  admin_emails: <%= (ENV['admin_emails'] || "").split(",").collect { |s| s.strip }  %>
+  admin_emails: <%= (ENV['admin_emails'] || "") %>
   google_analytics_key: "<%= ENV['google_analytics_key'] %>"
   asset_host: "<%= ENV['asset_host'] %>"
   <% if ENV['rack_attack'] %>
