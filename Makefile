@@ -4,7 +4,7 @@ RUN = docker-compose run app
 install:
 	@make secert
 	@touch app.local.env
-	@docker-compose build --no-cache
+	@docker-compose build
 	@$(RUN) bundle install --retry=3 --jobs=2
 	@$(RUN) bundle exec rails db:create
 	@$(RUN) bundle exec rails db:migrate
@@ -14,7 +14,7 @@ install:
 update:
 	@make secert
 	@touch app.local.env
-	@docker-compose build --no-cache
+	@docker-compose build
 	@$(RUN) bundle install --retry=3 --jobs=2
 	@$(RUN) bundle exec rails db:migrate
 	@$(RUN) bundle exec rails assets:precompile RAILS_ENV=production
