@@ -63,9 +63,20 @@ defaults: &defaults
   upload_url: "<%= ENV['upload_url'] %>"
   upload_aliyun_internal: <%= ENV['upload_aliyun_internal'] || false %>
   upload_aliyun_area: "<%= ENV['upload_aliyun_area'] %>"
-  email_server: "<%= ENV['email_server'] %>"
-  email_sender: "<%= ENV['email_sender'] %>"
-  email_password: "<%= ENV['email_password'] %>"
+  mailer_provider: "<%= ENV['mailer_provider'] || 'smtp' %>"
+  mailer_sender: "<%= ENV['mailer_sender'] || 'no-reply@127.0.0.1' %>"
+  mailer_options:
+    <% if ENV['mailer_provider'] == 'postmark' %>
+    api_key: '<%= ENV['mailer_options.api_key'] %>'
+    <% else %>
+    address: '<%= ENV['mailer_options.address'] %>'
+    port: <%= ENV['mailer_options.port'] || 25 %>
+    domain: '<%= ENV['mailer_options.domain'] %>'
+    user_name: '<%= ENV['mailer_options.user_name'] %>'
+    password: '<%= ENV['mailer_options.password'] %>'
+    authentication: '<%= ENV['mailer_options.authentication'] || 'plain' %>'
+    enable_starttls_auto: <%= ENV['mailer_options.enable_starttls_auto'] || true %>
+    <% end %>
   github_token: "<%= ENV['github_token'] %>"
   github_secret: "<%= ENV['github_secret'] %>"
 
