@@ -40,7 +40,7 @@ RUN echo 'gem: --no-document' >> /usr/local/etc/gemrc &&\
 RUN gem install bundler
 
 # == Install Nginx
-RUN curl -sSL https://git.io/vVHhf | bash
+RUN curl -sSL https://git.io/vXqc8 | bash
 
 ENV GEM_HOME /usr/local/bundle
 ENV BUNDLE_PATH="$GEM_HOME" \
