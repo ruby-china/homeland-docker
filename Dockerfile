@@ -1,7 +1,7 @@
 # NAME:     homeland/web
 # VERSION:  0.0.1
 
-FROM homeland/base:latest
+FROM homeland/base:0.1.1
 
 ENV RAILS_ENV 'production'
 
