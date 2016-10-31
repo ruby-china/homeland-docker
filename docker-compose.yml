@@ -52,6 +52,8 @@ app: &app_base
     - ./shared/ssl:/var/www/ssl
     - ./shared/bundle:/usr/local/bundle
     - ./shared/cache/assets:/var/www/homeland/public/assets
+    - ./data/uploads:/var/www/homeland/public/uploads
+    - ./shared/cache/uploads-thumb:/var/www/cache/uploads-thumb
     - ./shared/system:/var/www/homeland/public/system
     - ./log:/var/www/log
     - ./log:/var/www/homeland/log
