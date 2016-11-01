@@ -1,6 +1,4 @@
 # NAME:     homeland/base
-# VERSION:  0.0.1
-
 FROM ubuntu:14.04
 
 ENV RUBY_VERSION "2.3.1"
@@ -50,3 +48,10 @@ ENV BUNDLE_PATH="$GEM_HOME" \
 ENV PATH $BUNDLE_BIN:$PATH
 RUN mkdir -p "$GEM_HOME" "$BUNDLE_BIN" \
 	&& chmod 777 "$GEM_HOME" "$BUNDLE_BIN"
+
+RUN useradd ruby -s /bin/bash -m -U &&\
+    mkdir -p /var/www &&\
+    wget -t 10 -q https://github.com/ruby-china/homeland/archive/v$HOMELAND_VERSION.tar.gz &&\
+    tar zx v$HOMELAND_VERSION.tar.gz &&\
+    mv homeland-$HOMELAND_VERSION/ homeland &&\
+    chown -R ruby:ruby /var/www

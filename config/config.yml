@@ -51,7 +51,7 @@ defaults: &defaults
   admin_emails: <%= (ENV['admin_emails'] || "") %>
   google_analytics_key: "<%= ENV['google_analytics_key'] %>"
   asset_host: "<%= ENV['asset_host'] %>"
-  <% if ENV['rack_attack'] %>
+  <% if ENV['rack_attack.limit'] %>
   rack_attack:
     limit: <%= ENV['rack_attack.limit'] || 500 %>
     period: <%= ENV['rack_attack.period'] || 60 %>

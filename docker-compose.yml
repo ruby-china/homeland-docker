@@ -26,7 +26,7 @@ elasticsearch:
     - '9300'
 
 web:
-  build: .
+  image: homeland/homeland:2.3.0.beta1
   links:
     - app
     - worker
@@ -38,7 +38,7 @@ web:
     - "443:443"
 
 app: &app_base
-  build: .
+  image: homeland/homeland:2.3.0.beta1
   env_file:
     - app.default.env
     - app.local.env
@@ -49,8 +49,17 @@ app: &app_base
     - memcached
     - redis
   volumes:
+    - ./etc/nginx/nginx.conf:/etc/nginx/nginx.conf
+    - ./etc/nginx/homeland.conf:/etc/nginx/conf.d/homeland.conf
+    - ./config/cable.yml:/var/www/homeland/config/cable.yml
+    - ./config/config.yml:/var/www/homeland/config/config.yml
+    - ./config/database.yml:/var/www/homeland/config/database.yml
+    - ./config/elasticsearch.yml:/var/www/homeland/config/elasticsearch.yml
+    - ./config/memcached.yml:/var/www/homeland/config/memcached.yml
+    - ./config/redis.yml:/var/www/homeland/config/redis.yml
+    - ./config/secrets.yml:/var/www/homeland/config/secrets.yml
+    - ./config/puma.rb:/var/www/homeland/config/puma.rb
     - ./shared/ssl:/var/www/ssl
-    - ./shared/bundle:/usr/local/bundle
     - ./shared/cache/assets:/var/www/homeland/public/assets
     - ./data/uploads:/var/www/homeland/public/uploads
     - ./shared/cache/uploads-thumb:/var/www/cache/uploads-thumb
@@ -58,6 +67,7 @@ app: &app_base
     - ./log:/var/www/log
     - ./log:/var/www/homeland/log
     - ./tmp:/var/www/homeland/tmp
+    - ./tmp/pids:/var/www/pids
     - ./tmp/pids:/var/www/homeland/tmp/pids
   command: bundle exec puma -C config/puma.rb
   ports:
