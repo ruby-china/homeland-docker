@@ -50,6 +50,7 @@ app: &app_base
     - redis
   volumes:
     - ./etc/nginx/nginx.conf:/etc/nginx/nginx.conf
+    - ./etc/nginx/html:/etc/nginx/html
     - ./etc/nginx/homeland.conf:/etc/nginx/conf.d/homeland.conf
     - ./config/cable.yml:/var/www/homeland/config/cable.yml
     - ./config/config.yml:/var/www/homeland/config/config.yml
