@@ -5,6 +5,9 @@ install:
 	@make secret
 	@touch app.local.env
 	@$(RUN) bundle install --retry=3 --jobs=2
+	@echo "\n**Notice**: Wait for the initialization of DB...\n"
+	@echo "...\n"
+	@sleep 10
 	@$(RUN) bundle exec rails db:create
 	@$(RUN) bundle exec rails db:migrate
 	@$(RUN) bundle exec rails db:seed
