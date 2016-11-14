@@ -26,7 +26,7 @@ elasticsearch:
     - '9300'
 
 web:
-  image: homeland/homeland:2.3.0.beta3
+  image: homeland/homeland:2.3.0.rc
   links:
     - app
     - worker
@@ -38,7 +38,7 @@ web:
     - "443:443"
 
 app: &app_base
-  image: homeland/homeland:2.3.0.beta3
+  image: homeland/homeland:2.3.0.rc
   env_file:
     - app.default.env
     - app.local.env
