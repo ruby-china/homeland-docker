@@ -1,7 +1,7 @@
 # NAME:     homeland/base
 FROM ubuntu:14.04
 
-ENV RUBY_VERSION "2.3.1"
+ENV RUBY_VERSION "2.3.2"
 
 MAINTAINER Jason Lee "https://github.com/huacnlee"
 
