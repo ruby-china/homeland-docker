@@ -1,8 +1,8 @@
 # NAME:     homeland/homeland
-FROM homeland/base:0.1.1
+FROM homeland/base:0.2.0
 
 ENV RAILS_ENV 'production'
-ENV HOMELAND_VERSION '2.3.0.rc'
+ENV HOMELAND_VERSION '2.3.0'
 
 MAINTAINER Jason Lee "https://github.com/huacnlee"
 
