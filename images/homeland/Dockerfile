@@ -2,7 +2,7 @@
 FROM homeland/base:0.2.0
 
 ENV RAILS_ENV 'production'
-ENV HOMELAND_VERSION '2.3.0'
+ENV HOMELAND_VERSION '2.3.1'
 
 MAINTAINER Jason Lee "https://github.com/huacnlee"
 
