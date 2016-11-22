@@ -1,11 +1,11 @@
 # NAME:     homeland/base
 FROM ubuntu:14.04
 
-ENV RUBY_VERSION "2.3.2"
+ENV RUBY_VERSION "2.3.3"
 
 MAINTAINER Jason Lee "https://github.com/huacnlee"
 
-RUN echo "0.0.1" > /VERSION
+RUN echo "0.2.1" > /VERSION
 
 # == Ubuntu Mirror on 163 for China network
 RUN \
