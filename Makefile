@@ -2,16 +2,19 @@ RAKE = docker-compose run app bundle exec rake
 RUN = docker-compose run app
 
 install:
-	@make secert
+	@make secret
 	@touch app.local.env
 	@$(RUN) bundle install --retry=3 --jobs=2
+	@echo "\n**Notice**: Wait for the initialization of DB...\n"
+	@echo "...\n"
+	@sleep 10
 	@$(RUN) bundle exec rails db:create
 	@$(RUN) bundle exec rails db:migrate
 	@$(RUN) bundle exec rails db:seed
 	@$(RUN) bundle exec rails assets:precompile RAILS_ENV=production
 	@make reindex
 update:
-	@make secert
+	@make secret
 	@touch app.local.env
 	@$(RUN) bundle exec rails db:migrate
 	@$(RUN) bundle exec rails assets:precompile RAILS_ENV=production
@@ -33,7 +36,7 @@ reindex:
 	@$(RAKE) environment elasticsearch:import:model CLASS=Topic FORCE=y
 	@$(RAKE) environment elasticsearch:import:model CLASS=Page FORCE=y
 	@$(RAKE) environment elasticsearch:import:model CLASS=User FORCE=y
-secert:
+secret:
 	@test -f app.secret.env || echo "secret_key_base=`openssl rand -hex 32`" > app.secret.env
 	@cat app.secret.env
 start-brew-services:
