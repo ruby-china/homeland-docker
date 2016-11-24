@@ -18,7 +18,7 @@ memcached:
     - '11211'
 
 elasticsearch:
-  image: grantchen/elasticsearch-ik:latest
+  image: elasticsearch:2.4.1
   volumes:
     - ./data/elasticsearch:/usr/share/elasticsearch/data
   ports:
