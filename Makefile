@@ -11,6 +11,7 @@ install:
 	@$(RUN) bundle exec rails assets:precompile RAILS_ENV=production
 	@make reindex
 update:
+	@make clean
 	@make secert
 	@touch app.local.env
 	@$(RUN) bundle exec rails db:migrate
@@ -48,3 +49,6 @@ stop-brew-services:
 	@brew services stop redis
 	@brew services stop elasticsearch
 	@brew services stop nginx
+clean:
+	@echo "Clean Docker images..."
+	@docker ps -aqf status=exited | xargs docker rm && docker images -qf dangling=true | xargs docker rmi
