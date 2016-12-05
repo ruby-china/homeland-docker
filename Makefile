@@ -11,7 +11,6 @@ install:
 	@$(RUN) bundle exec rails assets:precompile RAILS_ENV=production
 	@make reindex
 update:
-	@make secert
 	@make secret
 	@touch app.local.env
 	@$(RUN) bundle exec rails db:migrate
