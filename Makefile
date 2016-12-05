@@ -11,12 +11,13 @@ install:
 	@$(RUN) bundle exec rails assets:precompile RAILS_ENV=production
 	@make reindex
 update:
-	@make clean
+	@make secert
 	@make secret
 	@touch app.local.env
 	@$(RUN) bundle exec rails db:migrate
 	@$(RUN) bundle exec rails assets:precompile RAILS_ENV=production
 	@make stop && make start
+	@make clean
 restart:
 	@make stop && make start
 start:
