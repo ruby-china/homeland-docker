@@ -41,13 +41,17 @@ site_configs: &site_configs
   reject_newbie_reply_in_the_evening: false
   apns_pem: ""
   blacklist_ips: ""
+  newbie_limit_time: 86400
 
 defaults: &defaults
   <<: *site_configs
   app_name: "<%= ENV['app_name'] %>"
-  modules: "<%= ENV['modules'] %>"
+  modules: "<%= ENV['modules'] || 'all'  %>"
+  profile_fileds: "<%= ENV['profile_fileds'] || 'all' %>"
   domain: "<%= ENV['domain'] %>"
   https: <%= ENV['https'] || 'true' %>
+  default_locale: "<%= ENV['default_locale'] || 'zh-CN' %>"
+  auto_locale: <%= ENV['auto_locale'] || 'false' %>
   admin_emails: <%= ENV['admin_emails'] %>
   google_analytics_key: "<%= ENV['google_analytics_key'] %>"
   asset_host: "<%= ENV['asset_host'] %>"
