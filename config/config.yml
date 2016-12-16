@@ -47,7 +47,7 @@ defaults: &defaults
   <<: *site_configs
   app_name: "<%= ENV['app_name'] %>"
   modules: "<%= ENV['modules'] || 'all'  %>"
-  profile_fileds: "<%= ENV['profile_fileds'] || 'all' %>"
+  profile_fields: "<%= ENV['profile_fields'] || 'all' %>"
   domain: "<%= ENV['domain'] %>"
   https: <%= ENV['https'] || 'true' %>
   default_locale: "<%= ENV['default_locale'] || 'zh-CN' %>"
