@@ -81,6 +81,14 @@ defaults: &defaults
     authentication: '<%= ENV['mailer_options.authentication'] %>'
     enable_starttls_auto: <%= ENV['mailer_options.enable_starttls_auto'] %>
     <% end %>
+  sso:
+    <% if ENV['sso.enable_provider'] != 'true' %>
+    enable: <%= ENV['sso.enable'] || false %>
+    <% else %>
+    enable_provider: <%= ENV['sso.enable_provider'] || false %>
+    <% end %>
+    url: '<%= ENV['sso.url'] %>'
+    secret: '<%= ENV['sso.secret'] %>'
   github_token: "<%= ENV['github_token'] %>"
   github_secret: "<%= ENV['github_secret'] %>"
 
