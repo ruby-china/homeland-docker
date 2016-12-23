@@ -68,6 +68,7 @@ app: &app_base
     - ./config/puma.rb:/var/www/homeland/config/puma.rb
     - ./shared/ssl:/var/www/ssl
     - ./shared/cache/assets:/var/www/homeland/public/assets
+    - ./shared/.well-known:/var/www/homeland/public/.well-known
     - ./data/uploads:/var/www/homeland/public/uploads
     - ./shared/cache/uploads-thumb:/var/www/cache/uploads-thumb
     - ./shared/system:/var/www/homeland/public/system
