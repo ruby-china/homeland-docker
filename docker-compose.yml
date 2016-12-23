@@ -26,7 +26,7 @@ elasticsearch:
     - '9300'
 
 web:
-  image: homeland/homeland:2.4.2
+  image: homeland/homeland:latest
   links:
     - app
     - worker
@@ -38,7 +38,7 @@ web:
     - "443:443"
 
 app: &app_base
-  image: homeland/homeland:2.4.2
+  image: homeland/homeland:latest
   env_file:
     - app.default.env
     - app.local.env
@@ -49,9 +49,11 @@ app: &app_base
     - memcached
     - redis
   volumes:
+    - ./etc/ssl:/etc/ssl
     - ./etc/nginx/nginx.conf:/etc/nginx/nginx.conf
     - ./etc/nginx/html:/etc/nginx/html
     - ./etc/nginx/homeland.conf:/etc/nginx/conf.d/homeland.conf
+    - ./etc/nginx/conf.d/homeland:/etc/nginx/conf.d/homeland
     - ./config/cable.yml:/var/www/homeland/config/cable.yml
     - ./config/config.yml:/var/www/homeland/config/config.yml
     - ./config/database.yml:/var/www/homeland/config/database.yml
