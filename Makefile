@@ -14,9 +14,9 @@ install:
 	@$(RUN) bundle exec rails assets:precompile RAILS_ENV=production
 	@make reindex
 install_ssl:
-	cp etc/nginx/conf.d/homeland/ssl.conf.default etc/nginx/conf.d/homeland/ssl.conf
 	$(RUN_WEB) bash -c 'echo $$domain'
-	$(RUN_WEB) bash -c '$(ACME) --issue -d $$domain -w /var/www/homeland/public $(ACME_HOME)'
+	$(RUN_WEB) bash -c '$(ACME) --issue -d $$domain -w /var/www/homeland/public $(ACME_HOME) --debug'
+	cp etc/nginx/conf.d/homeland/ssl.conf.default etc/nginx/conf.d/homeland/ssl.conf
 	$(RUN_WEB) bash -c '$(ACME) --installcert $(ACME_HOME) -d $$domain --keypath /etc/ssl/homeland.key --fullchainpath /etc/ssl/homeland.crt --reloadcmd "nginx -s reload"'
 update:
 	@make secret
