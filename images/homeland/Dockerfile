@@ -14,6 +14,6 @@ RUN cd /var/www/homeland && bundle install --deployment &&\
     find /var/www/homeland/vendor/bundle -name tmp -type d -exec rm -rf {} + &&\
     chown -R ruby:ruby /var/www
 
-RUN sudo -u ruby curl https://get.acme.sh | sh
+RUN curl https://get.acme.sh | sh
 
 WORKDIR /var/www/homeland

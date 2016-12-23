@@ -2,6 +2,7 @@ RAKE = docker-compose run app bundle exec rake
 RUN = docker-compose run app
 RUN_WEB = docker-compose run web
 ACME = /root/.acme.sh/acme.sh
+ACME_HOME = --home /var/www/ssl
 
 install:
 	@make secret
@@ -13,10 +14,10 @@ install:
 	@$(RUN) bundle exec rails assets:precompile RAILS_ENV=production
 	@make reindex
 install_ssl:
+	cp etc/nginx/conf.d/homeland/ssl.conf.default etc/nginx/conf.d/homeland/ssl.conf
 	$(RUN_WEB) bash -c 'echo $$domain'
-	$(RUN_WEB) bash -c '$(ACME) --issue -d $$domain -w /var/www/homeland/public'
-	$(RUN_WEB) bash -c '$(ACME) --installcert -d $$domain --keypath /etc/ssl/homeland/homeland.key --fullchainpath /etc/ssl/homeland/homeland.crt --reloadcmd "service nginx force-reload"'
-	$(RUN_WEB) cp /etc/nginx/conf.d/homeland/ssl.conf.default /etc/nginx/conf.d/homeland/ssl.conf
+	$(RUN_WEB) bash -c '$(ACME) --issue -d $$domain -w /var/www/homeland/public $(ACME_HOME)'
+	$(RUN_WEB) bash -c '$(ACME) --installcert $(ACME_HOME) -d $$domain --keypath /etc/ssl/homeland.key --fullchainpath /etc/ssl/homeland.crt --reloadcmd "nginx -s reload"'
 update:
 	@make secret
 	@touch app.local.env
