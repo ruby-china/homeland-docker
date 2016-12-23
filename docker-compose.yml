@@ -30,6 +30,10 @@ web:
   links:
     - app
     - worker
+  env_file:
+    - app.default.env
+    - app.local.env
+    - app.secret.env
   command: nginx -c /etc/nginx/nginx.conf
   volumes_from:
     - app
