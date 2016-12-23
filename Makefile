@@ -15,7 +15,7 @@ install:
 install_ssl:
 	$(RUN) bash -c 'echo $$domain'
 	$(RUN) bash -c '$(ACME) --issue -d $$domain -w /var/www/homeland/public'
-	$(RUN) bash -c '$(ACME) --installcert -d $$domain --keypath /etc/ssl/homeland.key --fullchainpath /etc/ssl/homeland.crt --reloadcmd "service nginx force-reload"'
+	$(RUN) bash -c '$(ACME) --installcert -d $$domain --keypath /etc/ssl/homeland/homeland.key --fullchainpath /etc/ssl/homeland/homeland.crt --reloadcmd "service nginx force-reload"'
 	$(RUN) cp /etc/nginx/conf.d/homeland/ssl.conf.default /etc/nginx/conf.d/homeland/ssl.conf
 update:
 	@make secret
