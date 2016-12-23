@@ -5,3 +5,4 @@ shared/
 tmp/
 app.local.env
 app.secret.env
+etc/nginx/conf.d/homeland/ssl.conf

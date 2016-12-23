@@ -1,5 +1,8 @@
 RAKE = docker-compose run app bundle exec rake
 RUN = docker-compose run app
+RUN_WEB = docker-compose run web
+ACME = /root/.acme.sh/acme.sh
+ACME_HOME = --home /var/www/ssl
 
 install:
 	@make secret
@@ -10,6 +13,14 @@ install:
 	@$(RUN) bundle exec rails db:seed
 	@$(RUN) bundle exec rails assets:precompile RAILS_ENV=production
 	@make reindex
+install_ssl:
+	rm etc/nginx/conf.d/homeland/ssl.conf
+	docker-compose start web
+	$(RUN_WEB) bash -c 'echo $$domain'
+	$(RUN_WEB) bash -c '$(ACME) --issue -d $$domain -w /var/www/homeland/public $(ACME_HOME) --debug'
+	cp etc/nginx/conf.d/homeland/ssl.conf.default etc/nginx/conf.d/homeland/ssl.conf
+	$(RUN_WEB) bash -c '$(ACME) --installcert $(ACME_HOME) -d $$domain --keypath /var/www/ssl/homeland.key --fullchainpath /var/www/ssl/homeland.crt --reloadcmd "nginx -s reload"'
+	@echo "---------------------------------------------\n\nSSL install successed.\n\nNow you need enable https=true by update app.local.env.\nAnd then run: make restart\n\n"
 update:
 	@make secret
 	@touch app.local.env
