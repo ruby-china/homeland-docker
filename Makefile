@@ -14,7 +14,7 @@ install:
 	@$(RUN) bundle exec rails assets:precompile RAILS_ENV=production
 	@make reindex
 install_ssl:
-	rm etc/nginx/conf.d/homeland/ssl.conf
+	rm -f etc/nginx/conf.d/homeland/ssl.conf
 	docker-compose start web
 	$(RUN_WEB) bash -c 'echo $$domain'
 	$(RUN_WEB) bash -c '$(ACME) --issue -d $$domain -w /var/www/homeland/public $(ACME_HOME) --debug'
