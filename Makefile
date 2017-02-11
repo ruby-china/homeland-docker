@@ -29,6 +29,9 @@ update:
 	@$(RUN) bundle exec rails assets:precompile RAILS_ENV=production
 	@make stop && make start
 	@make clean
+upgrade_action_store:
+	@make stop
+	@$(RUN) bundle exec rails upgrade:action_store RAILS_ENV=production
 restart:
 	@make stop && make start
 start:
