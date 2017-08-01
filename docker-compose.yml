@@ -22,7 +22,7 @@ memcached:
 
 elasticsearch:
   container_name: 'homeland_elasticsearch'
-  image: elasticsearch:2.4.1
+  image: elasticsearch:5
   volumes:
     - ./data/elasticsearch:/usr/share/elasticsearch/data
   ports:
