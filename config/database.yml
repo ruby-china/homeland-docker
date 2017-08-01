@@ -1,10 +1,11 @@
 production:
   adapter: postgresql
   encoding: utf-8
-  database: homeland
-  username: postgres
-  password:
-  host: postgresql
+  database: <%= ENV['db_name'] || 'homeland' %>
+  username: <%= ENV['db_username'] || 'postgres' %>
+  password: <%= ENV['db_password'] || '' %>
+  host: <%= ENV['db_host'] || 'postgresql' %>
+  port: <%= ENV['db_port'] || '5432' %>
   pool: <%= ENV['db_pool'] || 64 %>
 
 development:
