@@ -1,4 +1,5 @@
 postgresql:
+  container_name: 'homeland_postgresql'
   image: postgres:9.5
   ports:
     - '5432'
@@ -6,6 +7,7 @@ postgresql:
     - ./data/postgresql:/var/lib/postgresql/data
 
 redis:
+  container_name: 'homeland_redis'
   image: redis:3.2.7
   ports:
     - '6379'
@@ -13,11 +15,13 @@ redis:
     - ./data/redis:/data
 
 memcached:
+  container_name: 'homeland_memcached'
   image: memcached:1.4.31
   ports:
     - '11211'
 
 elasticsearch:
+  container_name: 'homeland_elasticsearch'
   image: elasticsearch:2.4.1
   volumes:
     - ./data/elasticsearch:/usr/share/elasticsearch/data
@@ -26,6 +30,7 @@ elasticsearch:
     - '9300'
 
 web:
+  container_name: 'homeland_web'
   image: homeland/homeland:3.0.5
   links:
     - app
@@ -42,6 +47,7 @@ web:
     - "443:443"
 
 app: &app_base
+  container_name: 'homeland_app'
   image: homeland/homeland:3.0.5
   env_file:
     - app.default.env
@@ -83,5 +89,6 @@ app: &app_base
 
 worker:
   <<: *app_base
+  container_name: 'homeland_worker'
   ports: []
   command: bundle exec sidekiq -C config/sidekiq.yml -L /var/www/log/sidekiq.log
