@@ -37,7 +37,7 @@ elasticsearch:
 
 web:
   container_name: 'homeland_web'
-  image: homeland/homeland:3.0.5
+  image: homeland/homeland:3.0.6
   links:
     - app
     - worker
@@ -54,7 +54,7 @@ web:
 
 app: &app_base
   container_name: 'homeland_app'
-  image: homeland/homeland:3.0.5
+  image: homeland/homeland:3.0.6
   env_file:
     - app.default.env
     - app.local.env
