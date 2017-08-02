@@ -9,6 +9,7 @@ postgresql:
 redis:
   container_name: 'homeland_redis'
   image: redis:3.2.7
+  mem_limit: 300m
   ports:
     - '6379'
   volumes:
@@ -17,12 +18,17 @@ redis:
 memcached:
   container_name: 'homeland_memcached'
   image: memcached:1.4.31
+  mem_limit: 256m
   ports:
     - '11211'
 
 elasticsearch:
   container_name: 'homeland_elasticsearch'
   image: elasticsearch:5
+  environment:
+    - bootstrap.memory_lock=true
+    - "ES_JAVA_OPTS=-Xms256m -Xmx512m"
+  mem_limit: 1g
   volumes:
     - ./data/elasticsearch:/usr/share/elasticsearch/data
   ports:
