@@ -78,6 +78,7 @@ app: &app_base
     - ./config/redis.yml:/var/www/homeland/config/redis.yml
     - ./config/secrets.yml:/var/www/homeland/config/secrets.yml
     - ./config/puma.rb:/var/www/homeland/config/puma.rb
+    - ./config/puma-backup.rb:/var/www/homeland/config/puma-backup.rb
     - ./shared/ssl:/var/www/ssl
     - ./shared/cache/assets:/var/www/homeland/public/assets
     - ./shared/.well-known:/var/www/homeland/public/.well-known
@@ -92,6 +93,13 @@ app: &app_base
   command: bundle exec puma -C config/puma.rb
   ports:
     - "7000"
+
+app_backup:
+  <<: *app_base
+  container_name: 'homeland_app_backup'
+  command: bundle exec puma -C config/puma-backup.rb
+  ports:
+    - "7001"
 
 worker:
   <<: *app_base
