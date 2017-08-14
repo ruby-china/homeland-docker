@@ -1,10 +1,11 @@
 # NAME:     homeland/homeland
 FROM homeland/base:0.2.3
+MAINTAINER Jason Lee "https://github.com/huacnlee"
 
 ENV RAILS_ENV 'production'
-ENV HOMELAND_VERSION '3.0.6'
+RUN curl https://get.acme.sh | sh
 
-MAINTAINER Jason Lee "https://github.com/huacnlee"
+ENV HOMELAND_VERSION '3.0.7'
 
 RUN useradd ruby -s /bin/bash -m -U &&\
     mkdir -p /var/www &&\
@@ -13,7 +14,5 @@ RUN useradd ruby -s /bin/bash -m -U &&\
 RUN cd /var/www/homeland && bundle install --deployment &&\
     find /var/www/homeland/vendor/bundle -name tmp -type d -exec rm -rf {} + &&\
     chown -R ruby:ruby /var/www
-
-RUN curl https://get.acme.sh | sh
 
 WORKDIR /var/www/homeland
