@@ -40,6 +40,7 @@ web:
   image: homeland/homeland:3.0.7
   links:
     - app
+    - app_backup
     - worker
   env_file:
     - app.default.env
