@@ -1,0 +1,9 @@
+#!/bin/bash -eux
+
+docker-compose stop app
+docker-compose up -d app
+
+sleep 20
+
+docker-compose stop app_backup
+docker-compose up -d app_backup
