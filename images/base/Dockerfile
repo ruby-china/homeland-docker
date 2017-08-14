@@ -1,52 +1,24 @@
 # NAME:     homeland/base
-FROM ubuntu:14.04
-
-ENV RUBY_VERSION "2.4.0"
-
+FROM alpine:3.6
 MAINTAINER Jason Lee "https://github.com/huacnlee"
 
-RUN echo "0.2.3" > /VERSION
+ARG RUBY_VERSION=${RUBY_VERSION:-2.4.0}
 
-# == Ubuntu Mirror on 163 for China network
-RUN \
-    echo "deb http://mirrors.163.com/ubuntu/ trusty main restricted universe multiverse" > /etc/apt/sources.list && \
-    echo "deb http://mirrors.163.com/ubuntu/ trusty-security main restricted universe multiverse" >> /etc/apt/sources.list && \
-    echo "deb http://mirrors.163.com/ubuntu/ trusty-updates main restricted universe multiverse" >> /etc/apt/sources.list && \
-    echo "deb http://mirrors.163.com/ubuntu/ trusty-proposed main restricted universe multiverse" >> /etc/apt/sources.list && \
-    echo "deb http://mirrors.163.com/ubuntu/ trusty-backports main restricted universe multiverse" >> /etc/apt/sources.list && \
-    echo "deb-src http://mirrors.163.com/ubuntu/ trusty main restricted universe multiverse" >> /etc/apt/sources.list && \
-    echo "deb-src http://mirrors.163.com/ubuntu/ trusty-security main restricted universe multiverse" >> /etc/apt/sources.list && \
-    echo "deb-src http://mirrors.163.com/ubuntu/ trusty-updates main restricted universe multiverse" >> /etc/apt/sources.list && \
-    echo "deb-src http://mirrors.163.com/ubuntu/ trusty-proposed main restricted universe multiverse" >> /etc/apt/sources.list && \
-    echo "deb-src http://mirrors.163.com/ubuntu/ trusty-backports main restricted universe multiverse" >> /etc/apt/sources.list
+ENV CONFIGURE_OPTS="ac_cv_func_isnan=yes ac_cv_func_isinf=yes --disable-install-doc" \
+    NOKOGIRI_USE_SYSTEM_LIBRARIES=1 \
+    BUNDLE_SILENCE_ROOT_WARNING=1 \
+    RUBY_VERSION=${RUBY_VERSION} \
+    RUBY_BUILD_MIRROR_URL=https://cache.ruby-china.org \
+    GEM_HOME=/usr/local/bundle
 
-RUN apt-get update && apt-get install -y curl
+ENV BUNDLE_PATH=${GEM_HOME} \
+    BUNDLE_BIN=${GEM_HOME}/bin \
+    BUNDLE_APP_CONFIG=${GEM_HOME}
 
-# == Install Packages for Ruby Environments.
-RUN curl -sSL https://raw.githubusercontent.com/huacnlee/init.d/4c3e898ddee98a2e66db2f2769ac34d8fa8d898d/install_packages | bash
-
-# Clean apt-get
-RUN \
-    apt-get clean && \
-    rm -rf /var/lib/apt/lists/*
-
-# == Install Ruby
-ENV RUBY_BUILD_MIRROR_URL=https://cache.ruby-china.org
-RUN echo 'gem: --no-document' >> /usr/local/etc/gemrc &&\
-    mkdir /src && cd /src && git clone https://github.com/rbenv/ruby-build.git --depth 1 &&\
-    cd /src/ruby-build && ./install.sh &&\
-    cd / && rm -rf /src/ruby-build &&\
-    ruby-build $RUBY_VERSION /usr/local/
-RUN gem install bundler
-
-# == Install Nginx
-RUN curl -sSL https://git.io/vVHhf | bash
-
-ENV GEM_HOME /usr/local/bundle
-ENV BUNDLE_PATH="$GEM_HOME" \
-	BUNDLE_BIN="$GEM_HOME/bin" \
-	BUNDLE_SILENCE_ROOT_WARNING=1 \
-	BUNDLE_APP_CONFIG="$GEM_HOME"
 ENV PATH $BUNDLE_BIN:$PATH
-RUN mkdir -p "$GEM_HOME" "$BUNDLE_BIN" \
-	&& chmod 777 "$GEM_HOME" "$BUNDLE_BIN"
+
+COPY scripts/*.sh /tmp/
+RUN  ls /tmp/*.sh | sh && rm -rf /tmp/*.sh
+
+# Define default command.
+CMD ["/bin/bash", "--login"]
