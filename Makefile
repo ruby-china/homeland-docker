@@ -30,13 +30,13 @@ update:
 	@make stop && make start
 	@make clean
 restart:
-	@make stop && make start
+	./scripts/restart-app
 start:
 	@docker-compose up -d
 status:
 	@docker-compose ps
 stop:
-	@docker-compose stop web app worker
+	@docker-compose stop web app app_backup worker
 stop-all:
 	@docker-compose down
 console:
