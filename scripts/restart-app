@@ -1,7 +1,5 @@
 #!/bin/bash -eux
 
-docker-compose pull
-
 docker-compose stop app
 docker-compose up -d app
 
