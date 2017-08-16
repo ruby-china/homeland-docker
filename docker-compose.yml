@@ -19,6 +19,8 @@ memcached:
   container_name: 'homeland_memcached'
   image: memcached:1.4.31-alpine
   mem_limit: 256m
+  environment:
+    - MEMCACHED_MEMORY_LIMIT=256
   ports:
     - '11211'
 
