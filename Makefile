@@ -32,6 +32,7 @@ update:
 	@make clean
 restart:
 	./scripts/restart-app
+	@docker-compose restart web worker
 start:
 	@docker-compose up -d
 status:
