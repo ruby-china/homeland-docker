@@ -71,8 +71,8 @@ services:
       - redis
     logging:
       options:
-        max-size: "1k"
-        max-file: "5"
+        max-size: "1g"
+        max-file: "10"
     volumes:
       - ./etc/ssl/homeland:/etc/ssl/homeland
       - ./etc/nginx/nginx.conf:/etc/nginx/nginx.conf
