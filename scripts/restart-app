@@ -5,5 +5,5 @@ docker-compose up -d app
 
 sleep 20
 
-docker-compose stop app_backup
-docker-compose up -d app_backup
+docker-compose stop app_backup worker
+docker-compose up -d app_backup worker

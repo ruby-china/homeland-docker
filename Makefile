@@ -31,8 +31,9 @@ update:
 	@make restart
 	@make clean
 restart:
-	./scripts/restart-app
-	@docker-compose restart web worker
+	@sh ./scripts/restart-app
+	@docker-compose stop web
+	@docker-compose up -d web
 start:
 	@docker-compose up -d
 status:
