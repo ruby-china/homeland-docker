@@ -1,0 +1,7 @@
+#!/bin/bash -eux
+
+brew services stop memcached
+brew services stop postgres
+brew services stop redis
+brew services stop elasticsearch
+brew services stop nginx

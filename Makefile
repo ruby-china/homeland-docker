@@ -52,18 +52,6 @@ reindex:
 secret:
 	@test -f app.secret.env || echo "secret_key_base=`openssl rand -hex 32`" > app.secret.env
 	@cat app.secret.env
-start-brew-services:
-	@brew services start memcached
-	@brew services start postgres
-	@brew services start redis
-	@brew services start elasticsearch
-	@brew services start nginx
-stop-brew-services:
-	@brew services stop memcached
-	@brew services stop postgres
-	@brew services stop redis
-	@brew services stop elasticsearch
-	@brew services stop nginx
 clean:
 	@echo "Clean Docker images..."
 	@docker ps -aqf status=exited | xargs docker rm && docker images -qf dangling=true | xargs docker rmi
