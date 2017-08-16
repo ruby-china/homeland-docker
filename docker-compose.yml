@@ -1,110 +1,117 @@
-postgresql:
-  container_name: 'homeland_postgresql'
-  image: postgres:9.5-alpine
-  ports:
-    - '5432'
-  volumes:
-    - ./data/postgresql:/var/lib/postgresql/data
+version: "2"
 
-redis:
-  container_name: 'homeland_redis'
-  image: redis:3.2.7-alpine
-  mem_limit: 300m
-  ports:
-    - '6379'
-  volumes:
-    - ./data/redis:/data
+services:
+  postgresql:
+    container_name: 'homeland_postgresql'
+    image: postgres:9.5-alpine
+    ports:
+      - '5432'
+    volumes:
+      - ./data/postgresql:/var/lib/postgresql/data
 
-memcached:
-  container_name: 'homeland_memcached'
-  image: memcached:1.4.31-alpine
-  mem_limit: 256m
-  command: memcached -m 256
-  ports:
-    - '11211'
+  redis:
+    container_name: 'homeland_redis'
+    image: redis:3.2.7-alpine
+    mem_limit: 300m
+    ports:
+      - '6379'
+    volumes:
+      - ./data/redis:/data
 
-elasticsearch:
-  container_name: 'homeland_elasticsearch'
-  image: elasticsearch:5-alpine
-  environment:
-    - bootstrap.memory_lock=true
-    - "ES_JAVA_OPTS=-Xms256m -Xmx512m"
-  mem_limit: 1g
-  volumes:
-    - ./data/elasticsearch:/usr/share/elasticsearch/data
-  ports:
-    - '9200'
-    - '9300'
+  memcached:
+    container_name: 'homeland_memcached'
+    image: memcached:1.4.31-alpine
+    mem_limit: 256m
+    command: memcached -m 256
+    ports:
+      - '11211'
 
-web:
-  container_name: 'homeland_web'
-  image: homeland/homeland:3.0.7
-  links:
-    - app
-    - app_backup
-    - worker
-  env_file:
-    - app.default.env
-    - app.local.env
-    - app.secret.env
-  command: nginx -c /etc/nginx/nginx.conf
-  volumes_from:
-    - app
-  ports:
-    - "80:80"
-    - "443:443"
+  elasticsearch:
+    container_name: 'homeland_elasticsearch'
+    image: elasticsearch:5-alpine
+    environment:
+      - bootstrap.memory_lock=true
+      - "ES_JAVA_OPTS=-Xms256m -Xmx512m"
+    mem_limit: 1g
+    volumes:
+      - ./data/elasticsearch:/usr/share/elasticsearch/data
+    ports:
+      - '9200'
+      - '9300'
 
-app: &app_base
-  container_name: 'homeland_app'
-  image: homeland/homeland:3.0.7
-  env_file:
-    - app.default.env
-    - app.local.env
-    - app.secret.env
-  links:
-    - elasticsearch
-    - postgresql
-    - memcached
-    - redis
-  volumes:
-    - ./etc/ssl/homeland:/etc/ssl/homeland
-    - ./etc/nginx/nginx.conf:/etc/nginx/nginx.conf
-    - ./etc/nginx/html:/etc/nginx/html
-    - ./etc/nginx/homeland.conf:/etc/nginx/conf.d/homeland.conf
-    - ./etc/nginx/conf.d/homeland:/etc/nginx/conf.d/homeland
-    - ./config/cable.yml:/var/www/homeland/config/cable.yml
-    - ./config/config.yml:/var/www/homeland/config/config.yml
-    - ./config/database.yml:/var/www/homeland/config/database.yml
-    - ./config/elasticsearch.yml:/var/www/homeland/config/elasticsearch.yml
-    - ./config/memcached.yml:/var/www/homeland/config/memcached.yml
-    - ./config/redis.yml:/var/www/homeland/config/redis.yml
-    - ./config/secrets.yml:/var/www/homeland/config/secrets.yml
-    - ./config/puma.rb:/var/www/homeland/config/puma.rb
-    - ./config/puma-backup.rb:/var/www/homeland/config/puma-backup.rb
-    - ./shared/ssl:/var/www/ssl
-    - ./shared/cache/assets:/var/www/homeland/public/assets
-    - ./shared/.well-known:/var/www/homeland/public/.well-known
-    - ./data/uploads:/var/www/homeland/public/uploads
-    - ./shared/cache/uploads-thumb:/var/www/cache/uploads-thumb
-    - ./shared/system:/var/www/homeland/public/system
-    - ./log:/var/www/log
-    - ./log:/var/www/homeland/log
-    - ./tmp:/var/www/homeland/tmp
-    - ./tmp/pids:/var/www/pids
-    - ./tmp/pids:/var/www/homeland/tmp/pids
-  command: bundle exec puma -C config/puma.rb
-  ports:
-    - "7000"
+  web:
+    container_name: 'homeland_web'
+    image: homeland/homeland:3.0.7
+    links:
+      - app
+      - app_backup
+      - worker
+    env_file:
+      - app.default.env
+      - app.local.env
+      - app.secret.env
+    command: nginx -c /etc/nginx/nginx.conf
+    volumes_from:
+      - app
+    ports:
+      - "80:80"
+      - "443:443"
 
-app_backup:
-  <<: *app_base
-  container_name: 'homeland_app_backup'
-  command: bundle exec puma -C config/puma-backup.rb
-  ports:
-    - "7001"
+  app: &app_base
+    container_name: 'homeland_app'
+    image: homeland/homeland:3.0.7
+    env_file:
+      - app.default.env
+      - app.local.env
+      - app.secret.env
+    links:
+      - elasticsearch
+      - postgresql
+      - memcached
+      - redis
+    logging:
+      options:
+        max-size: "1k"
+        max-file: "5"
+    volumes:
+      - ./etc/ssl/homeland:/etc/ssl/homeland
+      - ./etc/nginx/nginx.conf:/etc/nginx/nginx.conf
+      - ./etc/nginx/html:/etc/nginx/html
+      - ./etc/nginx/homeland.conf:/etc/nginx/conf.d/homeland.conf
+      - ./etc/nginx/conf.d/homeland:/etc/nginx/conf.d/homeland
+      - ./config/cable.yml:/var/www/homeland/config/cable.yml
+      - ./config/config.yml:/var/www/homeland/config/config.yml
+      - ./config/database.yml:/var/www/homeland/config/database.yml
+      - ./config/elasticsearch.yml:/var/www/homeland/config/elasticsearch.yml
+      - ./config/memcached.yml:/var/www/homeland/config/memcached.yml
+      - ./config/redis.yml:/var/www/homeland/config/redis.yml
+      - ./config/secrets.yml:/var/www/homeland/config/secrets.yml
+      - ./config/puma.rb:/var/www/homeland/config/puma.rb
+      - ./config/puma-backup.rb:/var/www/homeland/config/puma-backup.rb
+      - ./shared/ssl:/var/www/ssl
+      - ./shared/cache/assets:/var/www/homeland/public/assets
+      - ./shared/.well-known:/var/www/homeland/public/.well-known
+      - ./data/uploads:/var/www/homeland/public/uploads
+      - ./shared/cache/uploads-thumb:/var/www/cache/uploads-thumb
+      - ./shared/system:/var/www/homeland/public/system
+      - ./log:/var/www/log
+      - ./log:/var/www/homeland/log
+      - ./tmp:/var/www/homeland/tmp
+      - ./tmp/pids:/var/www/pids
+      - ./tmp/pids:/var/www/homeland/tmp/pids
+    command: bundle exec puma -C config/puma.rb
+    ports:
+      - "7000"
 
-worker:
-  <<: *app_base
-  container_name: 'homeland_worker'
-  ports: []
-  command: bundle exec sidekiq -C config/sidekiq.yml -L /var/www/log/sidekiq.log
+  app_backup:
+    <<: *app_base
+    container_name: 'homeland_app_backup'
+    command: bundle exec puma -C config/puma-backup.rb
+    ports:
+      - "7001"
+
+  worker:
+    <<: *app_base
+    container_name: 'homeland_worker'
+    ports: []
+    command: bundle exec sidekiq -C config/sidekiq.yml -L /var/www/log/sidekiq.log

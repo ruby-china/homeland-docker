@@ -1,7 +1,6 @@
 app_root = '/var/www/homeland'
 pidfile "/var/www/pids/puma.pid"
 state_path "/var/www/pids/puma.state"
-stdout_redirect "/var/www/log/puma.stdout.log", "/var/www/log/puma.stderr.log", true
 bind 'unix:/var/www/pids/homeland.sock'
 daemonize false
 port 7000
