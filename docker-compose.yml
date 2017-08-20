@@ -21,7 +21,7 @@ services:
   memcached:
     container_name: 'homeland_memcached'
     image: memcached:1.4.31-alpine
-    mem_limit: 256m
+    mem_limit: 350m
     command: memcached -m 256
     ports:
       - '11211'
