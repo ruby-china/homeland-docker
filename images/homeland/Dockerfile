@@ -5,7 +5,7 @@ MAINTAINER Jason Lee "https://github.com/huacnlee"
 ENV RAILS_ENV 'production'
 RUN curl https://get.acme.sh | sh
 
-ENV HOMELAND_VERSION '3.0.8'
+ENV HOMELAND_VERSION '3.0.9'
 
 RUN useradd ruby -s /bin/bash -m -U &&\
     mkdir -p /var/www &&\

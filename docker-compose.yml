@@ -41,7 +41,7 @@ services:
 
   web:
     container_name: 'homeland_web'
-    image: homeland/homeland:3.0.8
+    image: homeland/homeland:3.0.9
     links:
       - app
       - app_backup
@@ -59,7 +59,7 @@ services:
 
   app: &app_base
     container_name: 'homeland_app'
-    image: homeland/homeland:3.0.8
+    image: homeland/homeland:3.0.9
     env_file:
       - app.default.env
       - app.local.env
