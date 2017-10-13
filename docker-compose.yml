@@ -5,7 +5,7 @@ services:
     container_name: 'homeland_postgresql'
     image: postgres:9.5-alpine
     ports:
-      - '5432'
+      - '5432:5432'
     volumes:
       - ./data/postgresql:/var/lib/postgresql/data
 
@@ -14,15 +14,16 @@ services:
     image: redis:3.2.7-alpine
     mem_limit: 300m
     ports:
-      - '6379'
+      - '6379:6379'
     volumes:
       - ./data/redis:/data
 
   memcached:
-    container_name: 'homeland_memcached'
     image: memcached:1.4.31-alpine
     mem_limit: 350m
     command: memcached -m 256
+    networks:
+      - ingress
     ports:
       - '11211'
 
@@ -101,17 +102,21 @@ services:
       - ./tmp/pids:/var/www/homeland/tmp/pids
     command: bundle exec puma -C config/puma.rb
     ports:
-      - "7000"
+      - "7000:7000"
 
   app_backup:
     <<: *app_base
     container_name: 'homeland_app_backup'
     command: bundle exec puma -C config/puma-backup.rb
     ports:
-      - "7001"
+      - "7001:7001"
 
   worker:
     <<: *app_base
     container_name: 'homeland_worker'
     ports: []
     command: bundle exec sidekiq -C config/sidekiq.yml -L /var/www/log/sidekiq.log
+
+networks:
+  ingress:
+    external: true
