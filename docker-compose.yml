@@ -22,8 +22,6 @@ services:
     image: memcached:1.4.31-alpine
     mem_limit: 350m
     command: memcached -m 256
-    networks:
-      - ingress
     ports:
       - '11211'
 
@@ -116,7 +114,3 @@ services:
     container_name: 'homeland_worker'
     ports: []
     command: bundle exec sidekiq -C config/sidekiq.yml -L /var/www/log/sidekiq.log
-
-networks:
-  ingress:
-    external: true
