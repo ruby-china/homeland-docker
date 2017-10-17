@@ -52,7 +52,7 @@ defaults: &defaults
   https: <%= ENV['https'] || 'true' %>
   default_locale: "<%= ENV['default_locale'] || 'zh-CN' %>"
   auto_locale: <%= ENV['auto_locale'] || 'false' %>
-  admin_emails: <%= ENV['admin_emails'] %>
+  admin_emails: <%= ENV['admin_emails'] || 'admin@admin.com' %>
   google_analytics_key: "<%= ENV['google_analytics_key'] %>"
   asset_host: "<%= ENV['asset_host'] %>"
   <% if ENV['rack_attack.limit'] == 'true' %>
