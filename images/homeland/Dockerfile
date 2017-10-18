@@ -15,4 +15,9 @@ RUN cd /var/www/homeland && bundle install --deployment &&\
     find /var/www/homeland/vendor/bundle -name tmp -type d -exec rm -rf {} + &&\
     chown -R ruby:ruby /var/www
 
+RUN locale-gen en_US.UTF-8
+ENV LANG en_US.UTF-8
+ENV LANGUAGE en_US:en
+ENV LC_ALL en_US.UTF-8
+
 WORKDIR /var/www/homeland
