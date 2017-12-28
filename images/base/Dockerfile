@@ -1,11 +1,7 @@
 # NAME:     homeland/base
 FROM ubuntu:14.04
 
-ENV RUBY_VERSION "2.4.0"
-
 MAINTAINER Jason Lee "https://github.com/huacnlee"
-
-RUN echo "0.2.3" > /VERSION
 
 # == Ubuntu Mirror on 163 for China network
 RUN \
@@ -30,7 +26,10 @@ RUN \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
+RUN curl https://get.acme.sh | sh
+
 # == Install Ruby
+ENV RUBY_VERSION "2.5.0"
 ENV RUBY_BUILD_MIRROR_URL=https://cache.ruby-china.org
 RUN echo 'gem: --no-document' >> /usr/local/etc/gemrc &&\
     mkdir /src && cd /src && git clone https://github.com/rbenv/ruby-build.git --depth 1 &&\
@@ -50,3 +49,8 @@ ENV BUNDLE_PATH="$GEM_HOME" \
 ENV PATH $BUNDLE_BIN:$PATH
 RUN mkdir -p "$GEM_HOME" "$BUNDLE_BIN" \
 	&& chmod 777 "$GEM_HOME" "$BUNDLE_BIN"
+
+RUN locale-gen en_US.UTF-8
+ENV LANG en_US.UTF-8
+ENV LANGUAGE en_US:en
+ENV LC_ALL en_US.UTF-8
