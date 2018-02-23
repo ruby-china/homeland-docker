@@ -4,7 +4,7 @@ MAINTAINER Jason Lee "https://github.com/huacnlee"
 
 ENV RAILS_ENV 'production'
 
-ENV HOMELAND_VERSION '3.0.10'
+ENV HOMELAND_VERSION '3.0.11'
 
 RUN useradd ruby -s /bin/bash -m -U &&\
     mkdir -p /var/www &&\
