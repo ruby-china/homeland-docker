@@ -29,7 +29,7 @@ RUN \
 RUN curl https://get.acme.sh | sh
 
 # == Install Ruby
-ENV RUBY_VERSION "2.5.0"
+ENV RUBY_VERSION "2.5.1"
 ENV RUBY_BUILD_MIRROR_URL=https://cache.ruby-china.org
 RUN echo 'gem: --no-document' >> /usr/local/etc/gemrc &&\
     mkdir /src && cd /src && git clone https://github.com/rbenv/ruby-build.git --depth 1 &&\
