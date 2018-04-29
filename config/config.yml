@@ -42,6 +42,8 @@ site_configs: &site_configs
   apns_pem: ""
   blacklist_ips: ""
   newbie_limit_time: 86400
+  topic_create_limit_interval: 60
+  topic_create_hour_limit_count: 10
 
 defaults: &defaults
   <<: *site_configs
