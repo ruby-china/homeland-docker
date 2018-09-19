@@ -14,10 +14,10 @@ install:
 	@make reindex
 install_ssl:
 	docker-compose start web
-	$(RUN_WEB) bash -c 'echo $$cert_domain'
-	$(RUN_WEB) bash -c '$(ACME) --issue -d $$cert_domain -w /home/app/homeland/public $(ACME_HOME) --debug'
+	$(RUN_WEB) ash -c 'echo $$cert_domain'
+	$(RUN_WEB) ash -c '$(ACME) --issue -d $$cert_domain -w /home/app/homeland/public $(ACME_HOME) --debug'
 	openssl dhparam -out shared/ssl/dhparam.pem 2048
-	$(RUN_WEB) bash -c '$(ACME) --installcert $(ACME_HOME) -d $$cert_domain --keypath /home/app/ssl/homeland.key --fullchainpath home/app/ssl/homeland.crt --reloadcmd "nginx -s reload"'
+	$(RUN_WEB) ash -c '$(ACME) --installcert $(ACME_HOME) -d $$cert_domain --keypath /home/app/ssl/homeland.key --fullchainpath home/app/ssl/homeland.crt --reloadcmd "nginx -s reload"'
 	@echo "---------------------------------------------\n\nSSL install successed.\n\nNow you need enable https=true by update app.local.env.\nAnd then run: make restart\n\n"
 update:
 	@docker-compose pull
