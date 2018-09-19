@@ -64,6 +64,7 @@ services:
       - ./tmp/pids:/home/app/pids
       - ./log:/home/app/homeland/log
       - ./tmp:/home/app/homeland/tmp
+      - ./etc/nginx/conf.d/homeland:/etc/nginx/conf.d/homeland
     command: bundle exec puma -C config/puma-master.rb
     ports:
       - "7000:7000"
