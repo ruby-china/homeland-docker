@@ -65,7 +65,7 @@ services:
       - ./log:/home/app/homeland/log
       - ./tmp:/home/app/homeland/tmp
       - ./etc/nginx/conf.d:/etc/nginx/conf.d
-    command: bundle exec puma -C config/puma-master.rb
+    command: /home/app/homeland/bin/docker-start
     ports:
       - "7000:7000"
 

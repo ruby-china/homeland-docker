@@ -10,7 +10,6 @@ install:
 	@$(RUN) bundle exec rails db:create
 	@$(RUN) bundle exec rails db:migrate
 	@$(RUN) bundle exec rails db:seed
-	@$(RUN) bundle exec rails assets:precompile RAILS_ENV=production
 	@make reindex
 install_ssl:
 	docker-compose start web
@@ -23,8 +22,6 @@ update:
 	@docker-compose pull
 	@make secret
 	@touch app.local.env
-	@$(RUN) bundle exec rails db:migrate
-	@$(RUN) bundle exec rails assets:precompile RAILS_ENV=production
 	@make restart
 	@make clean
 restart:
