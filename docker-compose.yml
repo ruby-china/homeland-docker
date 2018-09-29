@@ -54,7 +54,6 @@ services:
         max-size: "1g"
         max-file: "10"
     volumes:
-      - ./shared/cache/assets:/home/app/homeland/public/assets
       - ./shared/.well-known:/home/app/homeland/public/.well-known
       - ./data/uploads:/home/app/homeland/public/uploads
       - ./shared/cache/uploads-thumb:/home/app/cache/uploads-thumb
