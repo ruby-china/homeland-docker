@@ -23,7 +23,6 @@ update:
 	@make secret
 	@touch app.local.env
 	@make restart
-	@make clean
 restart:
 	@sh ./scripts/restart-app
 	@docker-compose stop web
