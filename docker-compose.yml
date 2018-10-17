@@ -16,7 +16,8 @@ services:
       - '6379:6379'
     volumes:
       - ./data/redis:/data
-    command: redis-server --maxmemory-policy volatile-lru --maxmemory 400mb
+      - ./etc/redis.conf:/etc/redis.conf
+    command: redis-server /etc/redis.conf --maxmemory 400mb
 
   elasticsearch:
     container_name: 'homeland_elasticsearch'
