@@ -1,0 +1,10 @@
+#!/bin/bash
+if [ -z ${IMAGE_VERSION+x} ];then
+  IMAGE_VERSION=latest
+fi
+image_name="homeland/homeland"
+version=$(date "+%Y%m%d%H%M%S")
+current_version=$IMAGE_VERSION
+echo "Tag: $current_version -> $version"
+docker tag $image_name:$current_version $image_name:$version
+echo $version > .previous-version

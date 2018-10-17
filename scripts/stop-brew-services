@@ -1,6 +1,4 @@
-#!/bin/bash -eux
-
-brew services stop memcached
+#!/bin/bash
 brew services stop postgres
 brew services stop redis
 brew services stop elasticsearch

@@ -1,4 +1,4 @@
-version: "2"
+version: "3"
 
 services:
   postgresql:
@@ -12,7 +12,6 @@ services:
   redis:
     container_name: 'homeland_redis'
     image: redis:3.2.7-alpine
-    mem_limit: 500m
     ports:
       - '6379:6379'
     volumes:
@@ -25,7 +24,6 @@ services:
     environment:
       - bootstrap.memory_lock=true
       - "ES_JAVA_OPTS=-Xms256m -Xmx512m"
-    mem_limit: 1g
     volumes:
       - ./data/elasticsearch:/usr/share/elasticsearch/data
     ports:
@@ -34,7 +32,7 @@ services:
 
   app: &app_base
     container_name: 'homeland_app'
-    image: homeland/homeland:latest
+    image: homeland/homeland:${IMAGE_VERSION:-latest}
     env_file:
       - app.secret.env
       - app.local.env

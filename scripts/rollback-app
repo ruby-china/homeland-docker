@@ -1,0 +1,23 @@
+#!/bin/bash
+if [ -z ${IMAGE_VERSION+x} ];then
+  cat << EOF
+You need special the rollback version:
+
+  $ IMAGE_VERSION=$(cat .previous-version) make rollback
+
+Or find a version to rollback:
+
+  $ docker ps | grep homeland
+
+EOF
+  exit 1
+fi
+
+echo "Rollbacking..."
+echo "version: $IMAGE_VERSION"
+./scripts/restart-app
+./scripts/restart-nginx
+echo "Rollback successed."
+echo ""
+docker ps | grep homeland
+echo ""

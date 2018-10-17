@@ -19,6 +19,7 @@ install_ssl:
 	$(RUN_WEB) ash -c '$(ACME) --installcert $(ACME_HOME) -d $$cert_domain --keypath /home/app/ssl/homeland.key --fullchainpath /home/app/ssl/homeland.crt --reloadcmd "nginx -s reload"'
 	@echo "---------------------------------------------\n\nSSL install successed.\n\nNow you need enable https=true by update app.local.env.\nAnd then run: make restart\n\n"
 update:
+	@sh ./scripts/create-version
 	@docker-compose pull
 	@make secret
 	@touch app.local.env
@@ -36,6 +37,8 @@ stop:
 	@docker-compose stop web app app_backup worker
 stop-all:
 	@docker-compose down
+rollback:
+	@sh ./scripts/rollback-app
 console:
 	@$(RUN) bundle exec rails console
 reindex:
