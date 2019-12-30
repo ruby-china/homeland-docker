@@ -11,7 +11,7 @@ services:
 
   redis:
     container_name: 'homeland_redis'
-    image: redis:3.2.7-alpine
+    image: redis:4-alpine
     ports:
       - '6379:6379'
     volumes:
@@ -71,7 +71,7 @@ services:
     <<: *app_base
     container_name: 'homeland_worker'
     ports: []
-    command: bundle exec sidekiq -C config/sidekiq.yml -L /home/app/log/sidekiq.log
+    command: bundle exec sidekiq -C config/sidekiq.yml
 
   web:
     <<: *app_base
