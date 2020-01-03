@@ -78,6 +78,7 @@ services:
     container_name: 'homeland_web'
     links:
       - app
+      - app_backup
       - worker
     command: /etc/nginx/start
     ports:

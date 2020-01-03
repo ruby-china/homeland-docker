@@ -29,6 +29,7 @@ restart:
 	@sh ./scripts/restart-app
 	@docker-compose stop web
 	@docker-compose up -d web
+	@docker-compose stop app_backup
 start:
 	@docker-compose up -d
 status:
