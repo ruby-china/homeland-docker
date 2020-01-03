@@ -17,7 +17,7 @@ services:
     volumes:
       - ./data/redis:/data
       - ./etc/redis.conf:/etc/redis.conf
-    command: redis-server /etc/redis.conf --maxmemory 400mb
+    command: redis-server /etc/redis.conf
 
   elasticsearch:
     container_name: 'homeland_elasticsearch'
