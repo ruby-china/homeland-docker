@@ -51,7 +51,6 @@ services:
       - ./shared/.well-known:/home/app/homeland/public/.well-known
       - ./data/uploads:/home/app/homeland/public/uploads
       - ./shared/cache/uploads-thumb:/home/app/cache/uploads-thumb
-      - ./shared/system:/home/app/homeland/public/system
       - ./shared/ssl:/home/app/ssl
       - ./shared/plugins:/home/app/homeland/plugins
       - ./log:/home/app/log
