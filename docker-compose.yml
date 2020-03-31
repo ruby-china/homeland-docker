@@ -21,17 +21,16 @@ services:
       - ./etc/redis.conf:/etc/redis.conf
     command: redis-server /etc/redis.conf
 
-  elasticsearch:
-    container_name: 'homeland_elasticsearch'
-    image: elasticsearch:5-alpine
+  meilisearch:
+    container_name: 'homeland_meilisearch'
+    image: homeland/meilisearch:latest
     environment:
-      - bootstrap.memory_lock=true
-      - "ES_JAVA_OPTS=-Xms256m -Xmx512m"
+      - MEILI_ENV=production
+      - MEILI_MASTER_KEY=homeland
     volumes:
-      - ./data/elasticsearch:/usr/share/elasticsearch/data
+      - ./data/meilisearch:/meilisearch/data.ms
     ports:
-      - '9200'
-      - '9300'
+      - '7700:7700'
 
   app: &app_base
     container_name: 'homeland_app'
@@ -40,7 +39,7 @@ services:
       - app.secret.env
       - app.local.env
     links:
-      - elasticsearch
+      - meilisearch
       - postgresql
       - redis
     logging:
