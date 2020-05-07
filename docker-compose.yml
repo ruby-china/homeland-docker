@@ -22,16 +22,17 @@ services:
     command: redis-server /etc/redis.conf
 
   elasticsearch:
-    container_name: "homeland_elasticsearch"
-    image: elasticsearch:7.6.3
+    container_name: 'homeland_elasticsearch'
+    image: elasticsearch:7.6.2
     environment:
+      - discovery.type=single-node
       - bootstrap.memory_lock=true
       - "ES_JAVA_OPTS=-Xms256m -Xmx512m"
     volumes:
       - ./data/elasticsearch:/usr/share/elasticsearch/data
     ports:
-      - "9200"
-      - "9300"
+      - '9200:9200'
+      - '9300:9300'
 
   app: &app_base
     container_name: "homeland_app"
