@@ -2,39 +2,39 @@ version: "3"
 
 services:
   postgresql:
-    container_name: 'homeland_postgresql'
+    container_name: "homeland_postgresql"
     image: postgres:9.5-alpine
     ports:
-      - '5432:5432'
+      - "5432:5432"
     environment:
       - POSTGRES_HOST_AUTH_METHOD=trust
     volumes:
       - ./data/postgresql:/var/lib/postgresql/data
 
   redis:
-    container_name: 'homeland_redis'
+    container_name: "homeland_redis"
     image: redis:4-alpine
     ports:
-      - '6379:6379'
+      - "6379:6379"
     volumes:
       - ./data/redis:/data
       - ./etc/redis.conf:/etc/redis.conf
     command: redis-server /etc/redis.conf
 
   elasticsearch:
-    container_name: 'homeland_elasticsearch'
-    image: elasticsearch:5-alpine
+    container_name: "homeland_elasticsearch"
+    image: elasticsearch:7.6.3
     environment:
       - bootstrap.memory_lock=true
       - "ES_JAVA_OPTS=-Xms256m -Xmx512m"
     volumes:
       - ./data/elasticsearch:/usr/share/elasticsearch/data
     ports:
-      - '9200'
-      - '9300'
+      - "9200"
+      - "9300"
 
   app: &app_base
-    container_name: 'homeland_app'
+    container_name: "homeland_app"
     image: homeland/homeland:${IMAGE_VERSION:-latest}
     env_file:
       - app.secret.env
@@ -64,20 +64,20 @@ services:
 
   app_backup:
     <<: *app_base
-    container_name: 'homeland_app_backup'
+    container_name: "homeland_app_backup"
     command: bundle exec puma -C config/puma-backup.rb
     ports:
       - "7001:7001"
 
   worker:
     <<: *app_base
-    container_name: 'homeland_worker'
+    container_name: "homeland_worker"
     ports: []
     command: bundle exec sidekiq -C config/sidekiq.yml
 
   web:
     <<: *app_base
-    container_name: 'homeland_web'
+    container_name: "homeland_web"
     links:
       - app
       - app_backup
