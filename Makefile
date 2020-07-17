@@ -10,7 +10,6 @@ install:
 	@$(RUN) bundle exec rails db:create
 	@$(RUN) bundle exec rails db:migrate
 	@$(RUN) bundle exec rails db:seed
-	@make reindex
 install_ssl:
 	docker-compose start web
 	$(RUN_WEB) ash -c 'echo $$cert_domain'
