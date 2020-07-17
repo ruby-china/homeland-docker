@@ -1,5 +1,4 @@
 #!/bin/bash
 brew services start postgres
 brew services start redis
-brew services start elasticsearch
 brew services start nginx

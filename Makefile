@@ -43,9 +43,8 @@ rollback:
 console:
 	@$(RUN) bundle exec rails console
 reindex:
-	@echo "Reindex ElasticSearch..."
-	@$(RAKE) environment elasticsearch:import:model CLASS=Topic FORCE=y
-	@$(RAKE) environment elasticsearch:import:model CLASS=User FORCE=y
+	@echo "Reindex Search..."
+	@$(RAKE) reindex
 secret:
 	@test -f app.secret.env || echo "SECRET_KEY_BASE=`openssl rand -hex 32`" > app.secret.env
 	@cat app.secret.env
