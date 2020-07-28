@@ -5,7 +5,7 @@ services:
     container_name: "homeland_postgresql"
     image: postgres:9.5-alpine
     ports:
-      - "5432:5432"
+      - "5432"
     environment:
       - POSTGRES_HOST_AUTH_METHOD=trust
     volumes:
@@ -15,7 +15,7 @@ services:
     container_name: "homeland_redis"
     image: redis:4-alpine
     ports:
-      - "6379:6379"
+      - "6379"
     volumes:
       - ./data/redis:/data
       - ./etc/redis.conf:/etc/redis.conf
@@ -47,14 +47,14 @@ services:
       - ./etc/nginx/conf.d:/etc/nginx/conf.d
     command: /home/app/homeland/bin/docker-start
     ports:
-      - "7000:7000"
+      - "7000"
 
   app_backup:
     <<: *app_base
     container_name: "homeland_app_backup"
     command: bundle exec puma -C config/puma-backup.rb
     ports:
-      - "7001:7001"
+      - "7001"
 
   worker:
     <<: *app_base
