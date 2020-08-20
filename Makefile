@@ -1,5 +1,6 @@
 RAKE = docker-compose run app bundle exec rake
 RUN = docker-compose run app
+RUN_DB = docker-compose run postgresql
 RUN_WEB = docker-compose run web
 ACME = /root/.acme.sh/acme.sh
 ACME_HOME = --home /home/app/ssl
@@ -50,3 +51,6 @@ secret:
 clean:
 	@echo "Clean Docker images..."
 	@docker ps -aqf status=exited | xargs docker rm && docker images -qf dangling=true | xargs docker rmi
+backup:
+	@echo "Backing up database..."
+	@$(RUN_DB) pg_dump -d homeland -h postgresql -U postgres > postgres.sql
