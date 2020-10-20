@@ -12,3 +12,11 @@ Homeland Docker
 ## 使用说明
 
 http://gethomeland.com/install/
+
+## Versions
+
+分支对应 Homeland 版本
+
+- master - hoemland/homeland:3-7-latest
+- 3-7-stable - hoemland/homeland:3-7-latest
+- 3-3-stable - hoemland/homeland:3-3-latest
