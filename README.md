@@ -1,7 +1,7 @@
 Homeland Docker
 -----------------
 
-[Homeland](http://gethomeland.com) 基于 Docker 的自动化部署方案。
+[Homeland](https://homeland.ruby-china.org/) 基于 Docker 的自动化部署方案。
 
 ## 系统需求
 
@@ -11,7 +11,7 @@ Homeland Docker
 
 ## 使用说明
 
-http://gethomeland.com/install/
+https://homeland.ruby-china.org/install/
 
 ## Versions
 
