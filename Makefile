@@ -9,6 +9,8 @@ install:
 	@$(RUN) bundle exec rails db:create
 	@$(RUN) bundle exec rails db:migrate
 	@$(RUN) bundle exec rails db:seed
+install_ssl:
+	@echo "[DEPRECATED] \"make install_ssl\": command was been deprecated. Now we use Caddy Server for automatically manage SSL."
 update:
 	@sh ./scripts/create-version
 	@docker-compose pull
