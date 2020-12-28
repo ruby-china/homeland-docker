@@ -35,10 +35,8 @@ services:
         max-size: "1g"
         max-file: "10"
     volumes:
-      - ./shared/.well-known:/home/app/homeland/public/.well-known
       - ./data/uploads:/home/app/homeland/public/uploads
       - ./shared/cache/uploads-thumb:/home/app/cache/uploads-thumb
-      - ./shared/ssl:/home/app/ssl
       - ./shared/plugins:/home/app/homeland/plugins
       - ./log:/home/app/log
       - ./tmp/pids:/home/app/pids
@@ -71,5 +69,20 @@ services:
       - worker
     command: /etc/nginx/start
     ports:
+      - "8080:80"
+
+  caddy:
+    image: caddy:2-alpine
+    container_name: "homeland_caddy"
+    restart: unless-stopped
+    env_file:
+      - app.local.env
+    ports:
       - "80:80"
       - "443:443"
+    volumes:
+      - ./etc/caddy/Caddyfile:/etc/caddy/Caddyfile
+      - ./shared/caddy/data:/data
+    links:
+      - web
+    command: caddy run --config /etc/caddy/Caddyfile

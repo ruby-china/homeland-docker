@@ -1,0 +1,6 @@
+{$domain}
+
+reverse_proxy {
+  to web:80
+  header_up Host {http.reverse_proxy.upstream.hostport}
+}
