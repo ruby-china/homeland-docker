@@ -1,5 +1,4 @@
-Homeland Docker
------------------
+## Homeland Docker
 
 [Homeland](https://homeland.ruby-china.org/) 基于 Docker 的自动化部署方案。
 
@@ -17,6 +16,7 @@ https://homeland.ruby-china.org/install/
 
 分支对应 Homeland 版本
 
-- master - hoemland/homeland:3-7-latest
+- master - hoemland/homeland:3-8-latest
+- 3-8-stable - hoemland/homeland:3-8-latest
 - 3-7-stable - hoemland/homeland:3-7-latest
 - 3-3-stable - hoemland/homeland:3-3-latest
