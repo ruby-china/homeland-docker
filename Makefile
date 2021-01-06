@@ -23,8 +23,8 @@ update:
 	@docker tag homeland/homeland:latest homeland/homeland:$$(date "+%Y%m%d%H%M%S")
 restart:
 	@sh ./scripts/restart-app
-	@docker-compose stop caddy web
-	@docker-compose up -d caddy web
+	@docker-compose stop web
+	@docker-compose up -d web
 	@docker-compose stop app_backup
 start:
 	@docker-compose up -d
